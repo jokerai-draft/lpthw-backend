@@ -1,0 +1,34 @@
+
+可能影响载入页的因素
+
+让载入页去渲染 object 里的数据 (object 是纯数据 object, DTO object)
+
+or
+
+让 object 本身自带 render() 函数 (object 是 state's component)
+
+or
+
+载入页本身是一个可以被 实例化 的 VO 然后要么在 component constructor 构造函数里被实例化, 要么在渲染页里被实例化
+                               callee's caller is
+ - 首先 VO 里是可以有一小段自己的逻辑的
+ - 其次 VO 如何判定 url // 实际上 应该由 VO 的 caller 去判定 url 。如果不用 htaccess (要么在此基础上也不用路由导航参数 ***** , 要么在此基础上用路由导航参数 (what side effect? 不能用 htaccess )); 如果用 htaccess 那么就是一个 index.php 再根据 params 进行路由 (缺点是 无法从 $_GET 获得`路由导航参数`)
+
+or
+
+载入式启动器: 负责启动 HTTP 报文处理器、负责启动 VO, 启动 component
+本身 `载入页` 应该是继承它(类实例变量: superglobal 变量们 和 一个 HTTP 报文处理器的实例) 来的
+
+
+
+
+
+
+
+
+
+参考
+HTTP 报文处理器
+HTTP 报文处理器 一个 HTTP message handler
+HTTP 请求报文格式 and HTTP 响应报文格式 解析器/组装器
+lpthw-php7/appendix/architecture/ex4/C1/casestudy2/c1.txt
