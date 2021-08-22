@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     // echo "<pre>"; print_r($_POST); echo "</pre>";
     file_put_contents("storage", serialize(Utils::escape($_POST['locker'])));
 }
-$locker = unserialize(file_get_contents("storage")); // content, text, data, "locker" ; state
+$locker = unserialize(file_get_contents("storage")); // content, text, data, "locker" ; state, handler
 ?>
 <!-- -------------------------------------- -->
 
@@ -38,7 +38,7 @@ EOT;
 
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
     <label for="locker">Locker</label><br>
-    <textarea id="locker" name="locker" rows="4" cols="30"><?php echo $locker ?? "" ?></textarea><br>
+    <textarea id="locker" name="locker" rows="4" cols="30"><?php echo $locker ?? ""; ?></textarea><br>
     <input type="hidden" name="submitted" value="1" />
     <input type="submit" value="submit" />
     <input type="button" value="clean" onclick="document.getElementById('locker').value='';" />
@@ -49,7 +49,8 @@ echo "<pre>";
 print_r($_SERVER);
 echo "</pre>";
 echo "<pre>";
-// print_r($_POST);
+$_POST_escaped = array_map(fn($item) => Utils::escape($item), $_POST);
+print_r($_POST_escaped);
 echo "</pre>";
 ?>
 

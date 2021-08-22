@@ -32,3 +32,6 @@ HTTP 报文处理器
 HTTP 报文处理器 一个 HTTP message handler
 HTTP 请求报文格式 and HTTP 响应报文格式 解析器/组装器
 lpthw-php7/appendix/architecture/ex4/C1/casestudy2/c1.txt
+
+VO
+https://stackoverflow.com/questions/1612334/difference-between-dto-vo-pojo-javabeans
