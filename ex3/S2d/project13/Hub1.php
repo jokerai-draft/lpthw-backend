@@ -34,7 +34,9 @@ class Hub1
         }
     }
 
-    public static function handle() { // like an event handler
+    // like an event handler
+    // it could also happen as handling separately GET and POST request; in a POST request, it consumes state service directly and firstly (having the state prepared (according to the events) [heavy], before [light] the attempting to get the newest state)
+    public static function handle() {
         State1Service::updateState();
         State2Service::updateState();
     }
@@ -43,6 +45,7 @@ class Hub1
         self::$state = Component1::$state; // 关键值的获取(此两行)
     }
 
+    // launch HTTP response building process to build the response
     public static function launch() {
         $level1payload = [];
         $level1payload = self::$state; // Assembled1 并不知道 state's component 的存在
