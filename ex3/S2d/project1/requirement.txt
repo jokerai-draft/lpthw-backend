@@ -12,3 +12,11 @@ echo floor(time() / 10);  # 10s之内不会变
 第一个版本不要求数据读写次数, 即每次访问都可以读写数据 (频繁写入)
 第一个版本要求将数据读写次数降到最低 (允许无限只读 and 有限写入, 比如 10s之内不会变 就每10s写入一次数据(频率), 不能更频繁了)
 
+
+参考
+php get timestamp of a moment
+$date = new DateTime();
+$date = new DateTime('2000-01-01');
+echo $date->getTimestamp();
+https://www.php.net/manual/zh/datetime.gettimestamp.php
+https://www.php.net/manual/zh/datetime.construct.php

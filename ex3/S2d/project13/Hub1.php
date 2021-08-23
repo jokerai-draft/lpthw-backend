@@ -9,9 +9,10 @@ class Hub1
 
         // self::loginCheck();
 
+        self::handle();
         self::getState();
 
-        self::perform();
+        self::launch();
 
     }
 
@@ -33,12 +34,16 @@ class Hub1
         }
     }
 
+    public static function handle() { // like an event handler
+        State1Service::updateState();
+        State2Service::updateState();
+    }
     public static function getState() {
         Component1::onNotif();
         self::$state = Component1::$state; // 关键值的获取(此两行)
     }
 
-    public static function perform() {
+    public static function launch() {
         $level1payload = [];
         $level1payload = self::$state; // Assembled1 并不知道 state's component 的存在
         Assembled1::performIn($level1payload);

@@ -6,6 +6,26 @@ class State2Service
           self::initState(); // effect
         return self::$state;
     }
+    public static function updateState($payload = "time ticking while page being visited") {
+          self::initState(); // effect
+        // work
+        // $result = (int)floor(time() / 10); // plank result
+        // work
+        // 距 2000年1月1日零点
+        $timeSpan = time() - (new \DateTime('2000-01-01'))->getTimestamp();
+        $result = (int)floor($timeSpan / 10); // plank result
+        if (self::$state['result'] === $result) {
+            $arr1['writtingTimes'] = ++self::$state['writtingTimes']; // crazy writting frequency
+            self::$state = array_merge(self::$state, $arr1);
+            self::saveStateToFile();
+        }
+        if (self::$state['result'] !== $result) {
+            $arr1['result'] = $result;
+            $arr1['writtingTimes'] = ++self::$state['writtingTimes'];
+            self::$state = array_merge(self::$state, $arr1);
+            self::saveStateToFile();
+        }
+    }
     // public static function updateState($payload) { // int
     //       static::initState(); // effect
     //     self::$state['counter'] += $payload; // new item add to list, get the new list
@@ -43,6 +63,7 @@ class State2Service
         if ( !is_array(self::$state) || (is_array(self::$state) && count(self::$state) === 0)) { // 并不达标
             self::$state = [];
             $arr1 = ['result' => 2, 'writtingTimes' => 0, ];
+            ++$arr1['writtingTimes'];
             self::$state = array_merge(self::$state, $arr1);
             self::saveStateToFile();
         } else {
