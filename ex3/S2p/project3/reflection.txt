@@ -1,0 +1,43 @@
+
+trick:
+此架构可支持 search.php
+  从 hub 判断 Assembled1::$httpMessageHandler['GET']['submitted'] === "1" 开始
+  hub 等待检索结果, 等到之后 填入到 self::$state['queryResult'] 里
+  hub 将 state 作为 payload 发给渲染器, 渲染器根据 比如 count($databag['level1payload']['queryResult']) 显示未找到
+  大部分数据是 view 自己决定的, 小部分数据是 view 的 caller 决定的, 更小部分的数据是 hub+component(一个)+state service(一个或多个) 决定的
+
+没有解决的问题:
+最大支配方如何解决多个 component 的问题 (类似 redux 里默认是一个 store, 如何有多个 store 该如何管理)
+state service 可能从 session 当作固化地点
+state service 可能使用数据库连接 mysql adapter 什么的 https://www.v2ex.com/t/543746#phpmysqladapter https://code.tutsplus.com/courses/php-fundamentals/lessons/creating-a-dataprovider-class
+一个.php 文件就是对应一个路由地址 v2ex.com/t/479336
+这叫什么设计思想, 状态管理+路由(一个 HTTP 报文处理器)+渲染(一个view组装器/代理渲染器) v2ex.com/t/507286 这个其实是分出了 view 层的 https://twitter.com/danfletcherdev/status/1371954625549627392 mob programming (the designer) / mob running (machine)
+
+没有解决的问题
+最终是允许一个页面一个页面的完成, 先做计划: 静: 要展示的色彩, 要重点展示的数据, 对载入页注入数据, 使用了哪些静态元素 partial ; 动: 按钮是谁触发的 按钮在哪 给到哪个 URL , 谁是 handler , handler 作了轻量中量重量回应吗 轻量-即时反应 中量-组装后反应 重量-上报反应(支持硬盘文件读写) , 轻量是谁实现的(比如对slug进行反应 by 一个 HTTP 报文处理器), 中量是谁实现的(比如在生命周期里进行反应 by perform performOut ), 重量是谁实现的(比如硬盘文件读写操作 初次读写先存再取 然后读写是只读取 除非手动 (通过 state service 来) updateState, 比如负责完整的 persistence layer 固化层  提供与固化层交互的支持 获得一个state)
+
+没有解决的问题
+TimeIntervalProblem.txt 它是一个没有解决的问题 脚本无法长驻内存所带来的问题
+
+trick:
+精妙完成了
+(允许)两个载入器使用同一个储存地点(固化层)
+(允许)一个载入页载入多个地方的数据
+
+载入页启动器 + StateService
+数据渲染 perform (callee) + 为渲染填充 databag (caller)
+
+一个载入页有一个载入器, 可有多个 state (分开于多个 state service) 集合于 一个 component
+// 故而一个载入器有一个 component
+
+多个载入器或多个component可使用同一个存储地点
+// 故而有 state service 只负责读写存储地点, 支持无限查阅不断扫描返回最新数据 [1]
+
+
+
+
+
+[1]
+返回最新数据给谁? 给最大支配力的最大支配方
+然后由最大支配方 去启动渲染(并传入 level1payload for view, 作为将要进行的渲染填充所需的 databag 的一部分)
+// 最大支配方彻底(不管渲染)将渲染代理出去, 代理给渲染器 (renderer: assemble databag and render)

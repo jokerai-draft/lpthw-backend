@@ -36,8 +36,8 @@ class State1Service
     }
 
     // heavy effect, acturally
-    public static function initState() {
-        self::loadStateFromFile();
+    private static function initState() {
+        self::loadStateFromFile(); // read from persistence layer 固化层: read from file, from db, from session
         if ( !is_array(self::$state) || (is_array(self::$state) && count(self::$state) === 0)) { // 并不达标
             self::$state = [];
             $arr1 = ['counter' => 0, 'step' => 1, ];

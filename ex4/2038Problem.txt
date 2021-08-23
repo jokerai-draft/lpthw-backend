@@ -1,0 +1,21 @@
+
+2038 32-bit 位数问题
+
+https://www.php.net/manual/zh/datetime.gettimestamp.php 32位整数
+
+In 32-bit system the unix timestamp will overflow if the date goes beyond year 2038 and this method will return false. In 64-bit systems this function will still work as intended. For more information please see
+http://en.wikipedia.org/wiki/Year_2038_problem
+
+The Year 2038 problem (also called Y2038, Epochalypse,[1][2] Y2k38, Y2038 error or Unix Y2K) relates to representing time in many digital systems as the number of seconds passed since 00:00:00 UTC on 1 January 1970 and storing it as a signed 32-bit integer. Such implementations cannot encode times after 03:14:07 UTC on 19 January 2038. Similar to the Y2K problem, the Year 2038 problem is caused by insufficient capacity used to represent time.
+
+2038年问题（也称为Y2038、Epochalypse、[1][2] Y2k38、Y2038错误或Unix Y2K）
+与在许多数字系统中表示时间为1970年1月1日00:00:00 UTC以来的秒数并将其存储为有符号的32位整数有关
+这样的实现不能对2038年1月19日03:14:07 UTC之后的时间进行编码
+与千年虫问题类似，2038年问题是由用于表示时间的容量不足引起的
+
+
+评论区
+32位整数
+
+https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/floating-point-numeric-types
+

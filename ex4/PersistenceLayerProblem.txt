@@ -1,0 +1,30 @@
+
+只有固化层来的数字是可靠的: 可以保证读取的
+只有固化层来的数据是可靠的: 可以保证读取的
+
+可选的固化层:
+硬盘文件 // file_put_contents('storage', serialize(self::$state)); 由 state service 去跟固化层交互
+redis
+数据库 db database mysql (mysql adapter)
+客户端 local storage
+服务器端 cookie (sessioned data: 存在 $_SESSION 里, 需要先确认客户端的 cookie_id PHPSESSID )
+
+
+
+
+
+
+
+
+
+评论区
+php session 原理 - Google 搜索
+
+https://www.cnblogs.com/st-leslie/p/8016951.html
+检测有没有接收到对应的PHPSESSID
+
+小文件的效率问题，一般我们的session数据都不会太大（1～2K），如果有大量这样1～2K的文件在磁盘上，IO效 率肯定会很差
+https://www.huaweicloud.com/articles/a76ef8efbf40f129cd492c51617af5af.html
+
+这个时候最有效的方法是使用redis或者mongodb 原理是通过将原本保存在本地的session文件写入到内存中，通过内存换空间的形式来达到提升速度
+https://www.cnblogs.com/st-leslie/p/8016951.html

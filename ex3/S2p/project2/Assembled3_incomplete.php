@@ -52,3 +52,5 @@ class Assembled3 extends Assembled
     }
 
 }
+
+// 说明: HTTP 报文处理器 提出去 单独判断 POST 情况, 而且 渲染器有自己的 databag, 渲染器在被填入数据(类似 由上一层填入 payload 给它)之后可直接渲染, 类似 performOut

@@ -9,6 +9,7 @@ class Hub1
 
 
 
+        // ...
         // 这里可以插入检查用户登入状态的 block , 若不满足登入要求 则直接进入 收尾 block
 
 
@@ -59,6 +60,7 @@ class Hub1
             Assembled1::performOut(); // 处理从 inbound 到 outbound
 
             // 以上四句是收尾, 很可能会被拿出去 自成 block , 叫做 收尾 block
+            // 其实是 *激活渲染单位*  (渲染器在被填入数据(类似 由上一层填入 payload 给它)之后可直接渲染)
         }
 
     }
