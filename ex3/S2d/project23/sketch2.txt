@@ -1,5 +1,12 @@
 
 在做载入页的时候
 
-先做 view + assembled + hub
+先做 view + document(url) + assembled(连接 hubedDocument 和 view) + hub 静态版
 
+hub 静态版
+hub 激活 payload 版 (联动 view)
+hub 激活 HTTP 报文处理器版
+
+view dummy data 版
+view 数据注入版
+view event listener 版 (联动 event handler)
