@@ -20,6 +20,8 @@ redis
 评论区
 php session 原理 - Google 搜索
 
+https://www.bilibili.com/video/BV1c4411d7jb?p=73&t=16m20s
+
 https://www.cnblogs.com/st-leslie/p/8016951.html
 检测有没有接收到对应的PHPSESSID
 

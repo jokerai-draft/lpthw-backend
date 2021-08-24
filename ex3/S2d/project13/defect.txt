@@ -1,0 +1,17 @@
+
+=== 表象 作为 defect ===
+
+State1Service initState() called. State1Service loadStateFromFile() called.
+State1Service initState() called. State1Service loadStateFromFile() called.
+State1Service initState() called. State1Service loadStateFromFile() called.
+
+进行了三次调用 loadStateFromFile()
+其中两次是 Component1 的 init 和 onNotif , 一次是 event handler 的 handle
+前两次是为了获得最新数据 (event 产生之后就会有最新数据), 后一次是为了获得上下文
+
+=== 对于 defect 的另一种解释: 最新数据应该仅仅在 event 之后产生, 在新 event 之后才可能会 (将新数据吐出和老数据吐出放在一起看) 看出 defect 的产生 ===
+
+一次请求 event ，理论上只有一次数据获取。第二次数据获取的时候，已经是第二次 event 了
+
+如果把两次 event 压缩到一次感知，那么就会有 defect 效果
+如果仅仅是展示(第一次 也是唯一一次)所获取的数据，那么不会有 defect 效果 // 因为只有一次 event

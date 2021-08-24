@@ -3,11 +3,11 @@ class State2Service
 {
     private static $state;
     public static function getState() {
-          self::initState(); // effect
+          if (!isset(self::$state)) { self::initState(); } // effect
         return self::$state;
     }
     public static function updateState($payload = "time ticking while page being visited") {
-          self::initState(); // effect
+          if (!isset(self::$state)) { self::initState(); } // effect
         // work
         // $result = (int)floor(time() / 10); // plank result
         // work

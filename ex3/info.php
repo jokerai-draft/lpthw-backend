@@ -25,3 +25,5 @@ https://tutorials.supunkavinda.blog/php/oop-constructor-destructor
 https://www.v2ex.com/t/543746#MySqlAdapter mysql adapter 强烈的组合意味
 https://www.ruanyifeng.com/blog/2021/06/drunk-post-of-a-programmer.html
 https://www.php.net/manual/zh/language.oop5.decon.php#language.oop5.decon.constructor.static
+
+https://designpatternsphp.readthedocs.io/en/latest/Creational/Singleton/README.html
