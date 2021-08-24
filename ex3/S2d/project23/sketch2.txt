@@ -13,5 +13,6 @@ view event listener 版 (联动 event handler)
 
 component card 只读版 (按下启动 service)
 
+// 通常 event handler 是单独的一套问题: 从 POST 到 view form 到 Hub 到 state service 到 hub 强制刷新得到已更新数据, 还有 view 优化
 state service 启动版 (注入 view, via Component Hub Assembled view)
-state service event handler 版 (注入 HTTP 报文处理器, via Hub. 事件处理: view - HTTP报文处理器 - state service - hub state payload (注入 view 注入处理后的数据即已更新数据))
+state service event handler 版 (注入 HTTP 报文处理器, via Hub. 事件处理: view - HTTP 报文处理器 - state service - hub state payload (注入 view 注入处理后的数据即已更新数据))

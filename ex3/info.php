@@ -27,3 +27,5 @@ https://www.ruanyifeng.com/blog/2021/06/drunk-post-of-a-programmer.html
 https://www.php.net/manual/zh/language.oop5.decon.php#language.oop5.decon.constructor.static
 
 https://designpatternsphp.readthedocs.io/en/latest/Creational/Singleton/README.html
+
+print_r(var_export($_SESSION['isLoggedIn'], true)); // 字符串 true 或 false

@@ -42,6 +42,7 @@ if ($isLoggedIn === true) {
 <h4>Welcome</h4>
 <p>wow look at this ...</p>
 <a href="./document1.php" target="_blank">document1</a> <a href="./document2.php" target="_blank">document2</a>
+<a href="./document3.php" target="_blank">document3</a>
 <br><br><br><br>
 <?php require 'partial.logout-button.php'; ?>
 <?php

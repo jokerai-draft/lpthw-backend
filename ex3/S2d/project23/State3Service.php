@@ -7,6 +7,13 @@ class State3Service
         return self::$state;
     }
 
+    // event handler
+    public static function addContact($payload) {
+          if (!isset(self::$state)) { self::initState(); } // effect
+        $contact = ['name' => $payload['name'], 'phone' => $payload['phone'], 'email' => $payload['email'], ];
+        self::$state[] = $contact;
+          self::saveStateToFile(); // effect
+    }
 
     // effect
     private static function loadStateFromFile() {

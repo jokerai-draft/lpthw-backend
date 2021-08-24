@@ -22,6 +22,10 @@ $addressBook = [
     ['name' => 'Cindy', 'phone' => '513-739-2025', 'email' => 'cindy@gmail.com', ],
 ];
 $addressBook = $databag['level1payload']['Component2'];
+$url = $httpMessageHandler['URL'];
+
+$__isDebug = false;
+$__isLoggedIn = $_SESSION['isLoggedIn'] ?? false;
 ?>
 
 <h4>address book</h4>
@@ -36,6 +40,38 @@ foreach ($addressBook as $item) {
 }
 ?>
 </ul>
+<hr>
+<?php if ($__isLoggedIn === true) {?>
+<form action="<?= $url ?>" method="POST">
+    <h4>Add new contact</h4>
+    <label for="">name</label><br />
+    <input type="text" name="name" id="name" /><br />
+    <label for="">phone</label><br />
+    <input type="text" name="phone" id="phone" /><br />
+    <label for="">email</label><br />
+    <input type="text" name="email" id="email" /><br />
+    <input type="hidden" name="event" value="addContact" />
+    <input type="hidden" name="submitted" value="1" />
+    <input type="submit" value="submit" />
+    <input type="button" value="clean" onclick="
+    (function() {
+        document.getElementById('name').value='';
+        document.getElementById('phone').value='';
+        document.getElementById('email').value='';
+    })();
+    " />
+</form>
+<?php } ?>
+
+<?php
+#debug
+if ($__isDebug) {
+    echo "<pre>";
+    print_r($httpMessageHandler);
+    // print_r($_SESSION);
+    echo "</pre>";
+}
+?>
 </body>
 </html>
 <!--
