@@ -15,3 +15,17 @@ State1Service initState() called. State1Service loadStateFromFile() called.
 
 如果把两次 event 压缩到一次感知，那么就会有 defect 效果
 如果仅仅是展示(第一次 也是唯一一次)所获取的数据，那么不会有 defect 效果 // 因为只有一次 event
+
+
+
+
+
+
+
+
+
+
+
+评论区
+最终 "去 defect" 的效果是 把数据获取的次数压缩到最低 但仍然为任何一次event返回最新值
+办法：让一次 event 对应一次数据获取
