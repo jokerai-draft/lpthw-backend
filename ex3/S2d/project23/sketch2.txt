@@ -1,0 +1,5 @@
+
+在做载入页的时候
+
+先做 view + assembled + hub
+
