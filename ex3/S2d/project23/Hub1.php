@@ -41,8 +41,8 @@ class Hub1
         State2Service::updateState();
     }
     public static function getState() {
-        Component1::onNotif();
-        self::$state = Component1::$state; // 关键值的获取(此两行)
+        // Component1::onNotif();
+        // self::$state = Component1::$state; // 关键值的获取(此两行)
     }
 
     // launch HTTP response building process to build the response

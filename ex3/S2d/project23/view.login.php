@@ -36,9 +36,13 @@ if ($isLoggedIn !== true) {
     <input type="submit" name="submit" value="submit" />
 </form>
 <?php
-} else {
+}
+if ($isLoggedIn === true) {
 ?>
-<h4>Welcome</h4><br><br><br><br>
+<h4>Welcome</h4>
+<p>wow look at this ...</p>
+<a href="./document1.php" target="_blank">document1</a> <a href="./document2.php" target="_blank">document2</a>
+<br><br><br><br>
 <?php require 'partial.logout-button.php'; ?>
 <?php
 }
