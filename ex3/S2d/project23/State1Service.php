@@ -51,7 +51,6 @@ class State1Service
 
     // effect
     private static function loadStateFromFile() {
-        // echo "State1Service loadStateFromFile() called. " . PHP_EOL;
         if (file_exists('storage1'))
             self::$state = unserialize(file_get_contents('storage1'));
     }
@@ -61,7 +60,6 @@ class State1Service
 
     // heavy effect, acturally
     private static function initState() {
-        // echo "State1Service initState() called. " . PHP_EOL;
         self::loadStateFromFile(); // read from persistence layer 固化层: read from file, from db, from session
         if ( !is_array(self::$state) || (is_array(self::$state) && count(self::$state) === 0)) { // 并不达标
             self::$state = [];

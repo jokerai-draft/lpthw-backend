@@ -29,3 +29,13 @@ State1Service initState() called. State1Service loadStateFromFile() called.
 评论区
 最终 "去 defect" 的效果是 把数据获取的次数压缩到最低 但仍然为任何一次event返回最新值
 办法：让一次 event 对应一次数据获取
+不需要的办法(不需要的考虑,不需要的一套问题 as 关注的问题): 单例模式 singleton pattern
+
+
+
+评论区
+"下次才能获取到"
+一般 state 更新之后是下次刷新才能获取到 // 这可以探测出来 结果就是数据库和载入页数据不一致
+onNotif 是让这次刷新(强制刷新)就能获取到，也就是说 如果没有强制获取机制 那么(即使已更新数据)只有下次(刷)才能获取到
+ 所以往往是推荐开启强制刷新的
+

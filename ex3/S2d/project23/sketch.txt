@@ -1,0 +1,20 @@
+
+先做登入页
+再做登入之后可见页
+
+做登入页时候
+先做 view + assembled + hub, 再做 hub 自我状态更新 getState, 再做 state service 读写 handle
+// 最简单渲染: 根本不需要 handle , 但 getState 是 hub 自己的 是一定要做到的、launch 是 hub 调用渲染器
+// 跳转器 如果有必要 放在前面
+
+做登入之后可见页时候
+先做判断法 $isLoggedIn , 再做已登入时可见内容, 再做未登入时可见内容
+
+
+launch 路线
+hub - launch() - assmebled(payload) - perform - view
+
+神奇之处在于 hub 大量装配数据 其中就包括了 登入信息数据, 所以任何一个载入器(载入式启动器)(载入式页面启动器 载入页)都可以获得浏览器用户的登入信息
+而载入器之下的页面本身是可以获得登入信息的, 载入器页只需要插入卡片一样作就 OK 了:
+先 SessionedComponent::init(); // ... 神奇的地方开始了
+然后 getState 就可以消费登入信息了

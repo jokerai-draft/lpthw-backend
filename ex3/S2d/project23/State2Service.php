@@ -1,14 +1,13 @@
 <?php
-class State1Service
+class State2Service
 {
     private static $state;
     public static function getState() {
           if (!isset(self::$state)) { self::initState(); } // effect
         return self::$state;
     }
-    public static function updateState($payload = "ticking") {
-        //   self::initState(); // effect <- if you want to load it from memory directly to reduce disk-reading once, use singleton pattern as to hold data in memory accross classes. Or ref to 巨型状态机的比喻
-          if (!isset(self::$state)) { self::initState(); } // effect                ^ 如果是一步步传递进来的 那么就不需要巨型状态机
+    public static function updateState($payload = "time ticking while page being visited") {
+          if (!isset(self::$state)) { self::initState(); } // effect
         // work
         // $result = (int)floor(time() / 10); // plank result
         // work
@@ -16,9 +15,9 @@ class State1Service
         $timeSpan = time() - (new \DateTime('2000-01-01'))->getTimestamp();
         $result = (int)floor($timeSpan / 10); // plank result
         if (self::$state['result'] === $result) {
-            // $arr1['writtingTimes'] = ++self::$state['writtingTimes']; // crazy writting frequency
-            // self::$state = array_merge(self::$state, $arr1);
-            // self::saveStateToFile();
+            $arr1['writtingTimes'] = ++self::$state['writtingTimes']; // crazy writting frequency
+            self::$state = array_merge(self::$state, $arr1);
+            self::saveStateToFile();
         }
         if (self::$state['result'] !== $result) {
             $arr1['result'] = $result;
@@ -51,21 +50,19 @@ class State1Service
 
     // effect
     private static function loadStateFromFile() {
-        // echo "State1Service loadStateFromFile() called. " . PHP_EOL;
-        if (file_exists('storage1'))
-            self::$state = unserialize(file_get_contents('storage1'));
+        if (file_exists('storage2'))
+            self::$state = unserialize(file_get_contents('storage2'));
     }
     private static function saveStateToFile() {
-        file_put_contents('storage1', serialize(self::$state));
+        file_put_contents('storage2', serialize(self::$state));
     }
 
     // heavy effect, acturally
     private static function initState() {
-        // echo "State1Service initState() called. " . PHP_EOL;
         self::loadStateFromFile(); // read from persistence layer 固化层: read from file, from db, from session
         if ( !is_array(self::$state) || (is_array(self::$state) && count(self::$state) === 0)) { // 并不达标
             self::$state = [];
-            $arr1 = ['result' => 1, 'writtingTimes' => 0, ];
+            $arr1 = ['result' => 2, 'writtingTimes' => 0, ];
             ++$arr1['writtingTimes'];
             self::$state = array_merge(self::$state, $arr1);
             self::saveStateToFile();
