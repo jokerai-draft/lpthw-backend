@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document 1</title>
+    <title>Document 3</title>
     <style>
         li {
             margin: 10px 0;
@@ -21,11 +21,10 @@ $addressBook = [
     ['name' => 'Bill', 'phone' => '510-422-6710', 'email' => 'bill@gmail.com', ],
     ['name' => 'Cindy', 'phone' => '513-739-2025', 'email' => 'cindy@gmail.com', ],
 ];
-$greetings = $databag['level1payload']['greetings'];
+$addressBook = $databag['level1payload']['Component2'];
 ?>
 
 <h4>address book</h4>
-<b><?= $greetings ?></b>
 <ul>
 <?php
 foreach ($addressBook as $item) {

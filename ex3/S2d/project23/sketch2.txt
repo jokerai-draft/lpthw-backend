@@ -10,3 +10,8 @@ hub 激活 HTTP 报文处理器版
 view dummy data 版
 view 数据注入版
 view event listener 版 (联动 event handler)
+
+component card 只读版 (按下启动 service)
+
+state service 启动版 (注入 view, via Component Hub Assembled view)
+state service event handler 版 (注入 HTTP 报文处理器, via Hub. 事件处理: view - HTTP报文处理器 - state service - hub state payload (注入 view 注入处理后的数据即已更新数据))
