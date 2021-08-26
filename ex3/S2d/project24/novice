@@ -1,0 +1,7 @@
+
+eh 直接监听 slug url , 判断 slug 并启动对应的 controller action 并传入参数
+然后在 action 函数里完成一切, 包括 数据整个 数据装配 获得最新数据 为模板传入数据 调用模板
+
+action 函数里可以自己搞 component 数据结构的数据源 (通过 state service 获取数据 更新数据), 也可以从别的地方来的一个数据包 (未封装到 component 里) // 实际上！！！ component 数据结构还是可以保留的!!
+
+

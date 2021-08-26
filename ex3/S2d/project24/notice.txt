@@ -1,0 +1,4 @@
+
+注意 是否可以 牺牲 assembled 的定制性, 获得 毫无价值的 "相似 assembled 的聚合" 并且将 view filename 作为 参数传入进去
+好处: 降低 assembled 的个数
+坏处: 破坏了 hub 系(hub assembled view 作为 "hub bundble")的结构
