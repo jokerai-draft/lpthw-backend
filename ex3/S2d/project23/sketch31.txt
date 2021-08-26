@@ -1,0 +1,26 @@
+
+两个 event handling 系统: routing layer 里有一个 eh 系统, 载入式启动器 layer 有一个 eh 系统
+
+控制器思路
+routing layer 和 载入式启动器 layer 要做的对接, 就是 posts.php 和 [hub1, hub2, hub3] 的对接, 比如可以专门支持在 hub2 posts.php?action=edit&id=n 的页面里投放广告, 也可以 hub2plus posts-style2.php?action=edit&id=n  拒绝投放广告
+支持单 hub 投放广告
+ posts.php - hub - assembled - view - component - state service
+  eh                           eh
+             eh
+                                      collection
+                   render engine
+
+
+在控制器思路之下的 hub 是否能合并?
+若是: 完全不同的载入数据 (不共享 component) - 不能合并 // 全新开 hub 全新开 component
+
+若是: 放弃掉 一 hub 一 assembled , 实行 一 hub 多 assembled 则可以合并, 实现 一 hub 一 assembled 多 view 也可以合并
+                                ^ 这个意味着放弃掉 极大的粒度控制
+
+
+评论
+若按照武器制作的标准, 复杂度增加, 收益很小, 导致武器爱坏 ... 用的时间还没有修的时间多
+
+评论
+不要把已经搞清楚的事情搞乱, 除非有 重大的理由 (比如要遵守什么规则)
+

@@ -1,0 +1,39 @@
+
+设计某 model 的 edit 页面
+然后看 挂靠在哪个 hub 上 (是否需要有自己独立的 hub? 在纯通信的角度 是可以完全在一个信道里完成的)
+
+# 优待与苦工
+
+苦工
+- HTTP 报文处理器 谁来做
+- 数据库连接 谁来做 mysql adapter 安放在哪里作为组合
+- 数据库连接 数据读取 谁来做
+- 数据库连接 数据写入 谁来做
+
+
+优待
+- XSS 攻击屏蔽 有人做了
+
+优待
+- 页面 载入页的页面独立挂载 安排出去了 (但请求转发还没人做, 页面填充数据 发 payload 给 assembled 还没人做)(单页面的 state 还没人维护 ===> 如果是优待, 那么应该安排专门的 component 用于集结仅本载入页本载入器本载入式启动器所需的 state service)
+
+苦工
+? (hub 本身有自己的 state , hub 本身要求最新 state , 最新 state 是由覆盖整个生命周期的静态方法获得的) 最上层的 静态方法 invoker 必须有人来做, 而且记得 过程数据的有效性很低 可以摒弃 (某个 hub 在自我维护自己的 state)
+? 如果按照单一职能, 那么 为了保持 hub 的单一职责: 可以在 hub 的 caller 里分, 让 caller 去调用别的 hub 呀！直接 让 caller 看到某个情况 然后启动另一个 hub ... (也算是一个 event handler 了)(完全不干扰当前 hub 及其带队)(即使 hub 是启动了另一个 hub 但是 service 本身是和 hub/component 解耦的, 故而 storage 思路是可以在这里汇合 ... )
+? 这种特种 page (按照 slug 激活不同的 hub (监听 slug url)) 可能有自己专门的一套分线器? prehub 的分线器, 一个特种擅长计算 url 的 specific url event handler
+? 最后有搭配全新的 view and assembled, hub and assembled; 可以 share 的是 component and service, 但如果要定制 component 也是可以的(增减 service 数量)! 此时 (增加了 service 数量的) component 也是全新搭配的, 则只有 service 是 share 的
+? 最后大量被调用的 反而是 prehub 分线器 + state service/hub, 分别是 两个 event handling 系统 的 listener 端!
+
+非控制器思路
+单页面 每个页面的制胜点在于有自己的 hub 而且随时可以通过 component 扩展本载入页里的数据
+可通过 prehub 的分线器 激活 (低耦合: hub 和 prehub 的分线器)
+
+控制器思路
+一个模型有一套方法, 最终会被 event 激发来调用这套方法; 有专门的 event handler 来接收 最前端的 event 触发者 (监听 slug url); 在 event 发生之后, 直接被大捕获器 捕获 然后 执行不同的 数据操作 并 return 不同的 view , 大捕获器的名字可以叫做
+ posts.php 用法可以是 posts.php?event=show&id=3 posts.php?action=index posts.php?action=edit&id=2 ,
+ 每一个大捕获器 所激发的 是一个 hub , 其中 hub 就是 "非控制器思路" 的优点
+ 大捕获器可以是一种特制路由(url slug url 方面的 event handle ), 根据 method 和 slug 去 激发 hub . 真正展示页面和 model 方面的 event handle 的 一定是 hub 是入口点, 反言之 hub 反而能疏通给任何一个 url (一个 hub 可以是任何一个 url event handle 的结果部分), 这是 routing layer 和 载入式启动器 layer 的关系
+
+控制器思路
+routing layer 和 载入式启动器 layer 要做的对接, 就是 posts.php 和 [hub1, hub2, hub3] 的对接, 比如可以专门支持在 hub2 posts.php?action=edit&id=n 的页面里投放广告
+

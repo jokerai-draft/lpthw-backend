@@ -29,3 +29,11 @@ https://www.php.net/manual/zh/language.oop5.decon.php#language.oop5.decon.constr
 https://designpatternsphp.readthedocs.io/en/latest/Creational/Singleton/README.html
 
 print_r(var_export($_SESSION['isLoggedIn'], true)); // 字符串 true 或 false
+
+类变量和单例模式的区别
+如果出于某种原因您不需要一个对象的多个副本，那么与静态对象相比，单例设计模式具有优势，例如线程安全(假定您的单例代码编写得很好)、允许延迟初始化、确保对象在使用时已正确初始化、子类化、测试和重构方面的优势
+最好在第一次设置"正确"的东西，即使它看起来有缺点
+https://www.codenong.com/7026507/
+静态变量有两个主要问题：
+    线程安全-静态资源的定义不是线程安全的
+    代码含义-您不知道静态变量何时被实例化，以及它是否将在另一个静态变量之前被实例化

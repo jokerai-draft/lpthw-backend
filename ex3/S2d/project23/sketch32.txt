@@ -1,0 +1,25 @@
+
+"直接用多个 hub 就可以了", 出自武官建议
+说明:
+routing layer 和 载入式启动器 layer 要做的对接, 就是 posts.php 和 [hub1, hub2, hub3] 的对接
+支持单 hub 投放广告 (高耦合: hub assembled view 作为 "hub bundble")(低耦合: hub 和 state service)(低耦合: hub 和 prehub 的分线器, 一个特种擅长计算 url 的 specific url event handler 例如 posts.php 和 posts-style2.php )
+
+两个建议
+
+文官给出建议的结果是 mvc controller model CRUD 方法 resource controller
+
+武官给出建议的结果是 轻型武器 武器制作标准 不会拦截到其它, 不把已经搞清楚的事情搞乱
+
+
+两个建议
+
+文官给出建议是 高级 routing 系统, 给出 resource controller 来对应 index show create store edit update destroy 的 model CRUD 方法
+// 耦合度分析: controller 和 model 是低耦合, controller 和 view 是低耦合, 但 controller 内部 (index show create edit, store update destroy) 是高耦合 <- 在武官建议之中, 这是 四个 hub 解决的 (HubShow, HubIndex, HubEdit, HubDestroy) 而且各自可以控制自己的 view 和 process chain (hub assembled view as "hub bundle")
+
+武官给出建议是 低级 routing 系统, 给出 HubShow.php HubEdit.php HubIndex.php HubDestroy.php
+可以接待 低级 routing 系统 的 posts.php?action=show&id=n posts.php?action=edit&id=n posts.php?action=index posts.php?action=destroy&id=n
+// 它有自己的 proof of concept: 证明它的可行性、证明了它的特性(极大的粒度控制)
+// 可以 帮忙搭个博客.v2ex.com/t/798106
+
+
+

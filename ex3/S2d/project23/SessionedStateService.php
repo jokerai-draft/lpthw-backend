@@ -47,7 +47,7 @@ class SessionedStateService
     }
     */
     public static function tryLogin($payload = []){
-        $arr1 = ['isLoggedIn' => true, 'lastLoginTime' => (new DateTime())->format('Y-m-d H:i:s'), ];
+        $arr1 = ['isLoggedIn' => true, 'lastLoginTime' => (new DateTime())->format('Y-m-d H:i:s'), 'loginIdentity' => "Alien1979" ];
         self::$state = array_merge(self::$state, $arr1);
         self::saveStateToFile();
     }
