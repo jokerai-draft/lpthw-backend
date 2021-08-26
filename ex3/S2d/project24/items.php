@@ -25,31 +25,42 @@ class Eh1
         self::init();
 
         $method = self::$httpMessageHandler['REQUEST_METHOD'];
-        $action = self::$httpMessageHandler['GET']['action'] ?? self::$httpMessageHandler['POST']['action'] ?? null;
-        $id = self::$httpMessageHandler['GET']['id'] ?? self::$httpMessageHandler['POST']['id'] ?? null;
+        $action = self::$httpMessageHandler['GET']['action'] ?? self::$httpMessageHandler['POST']['action'] ?? "index";
+        $id = self::$httpMessageHandler['GET']['id'] ?? self::$httpMessageHandler['POST']['id'] ?? -1;
+        $id = (int)$id;
         $event = self::$httpMessageHandler['POST']['event'] ?? null;
 
-        $payload = [];
-        self::$databag['level1payload'] = $payload;
-
-        $controller = new ItemController(self::$httpMessageHandler, self::$databag);
+        self::$databag['level1payload'] = [];
+        $payload1 = self::$httpMessageHandler;
+        $payload2 = self::$databag;
+        $controller = new ItemController($payload1, $payload2);
         if ($method === "GET" && $action === "index") {
             $controller->index();
         }
-        if ($method === "GET" && $action === "show" && is_null($event)) {
-            $id = (int)self::$httpMessageHandler['GET']['id'] ?? -1;
+        if ($method === "GET" && $action === "show") {
             $controller->show($id);
         }
-        if ($method === "GET" && $action === "create" && $event === "store") {
+        if ($method === "GET" && $action === "create") {
             $controller->create();
         }
-        if ($method === "GET" && $action === "edit" && $event === "update") {
-            $controller->edit();
+        if ($method === "GET" && $action === "edit") {
+            $controller->edit($id);
         }
-        if ($method === "GET" && $action === "show" && $event === "destroy") {
-            $controller->destroy();
+        if ($method === "POST" && $event === "destroy") {
+            $controller->destroy($id);
+        }
+        if ($method === "POST" && $event === "store") {
+            $controller->store();
+        }
+        if ($method === "POST" && $event === "update") {
+            $controller->update($id);
         }
     }
 }
 
-// http://localhost:8000/items.php?action=index
+/*
+http://localhost:8000/items.php?action=index
+http://localhost:8000/items.php?action=create
+http://localhost:8000/items.php?action=edit&id=2
+
+*/

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document 3</title>
+    <title>details</title>
 </head>
 <body>
     <h4>Hi <?php echo $httpMessageHandler['GET']['name'] ?? "my friend" ?></h4>
@@ -14,7 +14,7 @@
 $__isDebug = false;
 $__isLoggedIn = $_SESSION['isLoggedIn'] ?? false;
 
-$item = $databag['item'];
+$item = $databag['state']['item'];
 echo <<<EOT
 <li>
 Name: {$item['name']} <br>
@@ -25,7 +25,7 @@ EOT;
 
 ?>
 <br><br><br>
-<a href="./items.php?action=index">back</a>
+<a href="./items.php?action=index">back</a> <a href="./items.php?action=edit&id=<?= $item['id'] ?>">edit</a>
 
 <?php
 #debug

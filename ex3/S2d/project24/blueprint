@@ -1,0 +1,25 @@
+
+页面获取数据 是载入数据的地方 填充给页面, 也就有了一个载入页
+载入页在刷新到最新数据之后再填充给页面
+载入页控制本页面上所有要展示的数据 // 可把数据分组 最后交给 state (本载入页的全局 state) 再 map 给 view
+数据提供方给载入器提供支持, 让载入器随时刷新到最新数据
+如果是 写入类操作, 载入器直接调用 state service // 由 state service 自我更新
+
+要点
+把 action 域 当作一个类来考虑, 然后一个类一个类完成, 共通的部分 可以由 component 和 service 来支持
+把 view 当成独立的画布来做: 允许任何注入值给到里面, 而不仅仅是某个模型的搜索结果
+完全可以从 view 写起, 而 view 所消费的(被注入的)变量 是哪里注入的? 是 assembled 注入的. assembled 又是 hub launch 的 callee . hub 又是先 getState 再 launch 的 .
+
+
+评论区
+支点在哪? 过程最小化, 数据最小化
+过程的开启,  $controller->show($id) 就在 controller#action 里
+数据最小化, 就是 在 controller 函数体里说 用什么数据做(databag 和 httpMessageHandler) 就 把什么数据获取之后贴在  $this->databag['key'] 所对应的 value 上 然后注入到 view 里
+
+
+要点
+state 最终是不会交给 view 的, view 攫取自己所需的 databag . 这时候所谓的 'state' 更像一个命名空间, 因为 databag 里应有尽有 什么都有 会有很多东西
+
+评论区
+payload 字眼有一个明显的传递参数效果, 是定义在使用参数的方法体的
+

@@ -3,52 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>index</title>
-    <style>
-        li {
-            margin: 10px 0;
-        }
-    </style>
+    <title>create</title>
 </head>
 <body>
     <h4>Hi <?php echo $httpMessageHandler['GET']['name'] ?? "my friend" ?></h4>
     <p><?php echo (new \DateTime())->format('Y-m-d H:i:s'); ?></p>
 
 <?php
-// dummy data
-// $addressBook = [
-//     ['name' => 'Alice', 'phone' => '111-222-3333', 'email' => 'alice@gmail.com', ],
-//     ['name' => 'Bill', 'phone' => '510-422-6710', 'email' => 'bill@gmail.com', ],
-//     ['name' => 'Cindy', 'phone' => '513-739-2025', 'email' => 'cindy@gmail.com', ],
-// ];
-$addressBook = $databag['state']['items'];
-
 $__isDebug = false;
 $__isLoggedIn = $_SESSION['isLoggedIn'] ?? false;
+
+$url = $httpMessageHandler['URL'];
+
 ?>
-
-<h4>address book</h4>
-<ul>
-<?php
-foreach ($addressBook as $item) {
-    $detail_url = './items.php?action=show&id=' . $item['id'];
-    echo <<<EOT
-<li>
-Name: {$item['name']} <br>
-Phone: {$item['phone']} <br>
-Email: {$item['email']} <br>
-<a href="$detail_url">detail</a>
-</li>
-EOT;
-}
-unset($item);
-?>
-</ul>
-<a href="./items.php?action=create">add new</a>
-<hr>
-
-
-<?php if ($__isLoggedIn === true) {?>
 <form action="<?= $url ?>" method="POST">
     <h4>Add new contact</h4>
     <label for="">name</label><br />
@@ -68,7 +35,9 @@ unset($item);
     })();
     " />
 </form>
-<?php } ?>
+
+<br><br><br>
+<a href="./items.php?action=index">back</a>
 
 <?php
 #debug
@@ -82,18 +51,6 @@ if ($__isDebug) {
 </body>
 </html>
 <!--
-http://localhost:8000/document1.php
-http://localhost:8000/document1.php?name=tom
-http://localhost:8000/document1.php"><script>alert(‘xss’);</script>
+http://localhost:8000/items.php?action=show&id=2
 
-http://localhost:8000/document1.php?name=tom&keyword=you"><script>alert('XSS');</script>
 -->
-
-<?php
-/*
-http://localhost:8000/items.php?action=index
-http://localhost:8000/items.php?action=create
-http://localhost:8000/items.php?action=edit&id=2
-
-*/
-?>
