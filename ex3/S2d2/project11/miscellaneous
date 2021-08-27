@@ -1,0 +1,58 @@
+
+Hub1 <= controller#action1
+Hub2 <= controller#action2
+
+Hub 里用到的 Component <= ComboCard
+Hub 里给出的 返回值组装方案 - Assembled (可自己获取到本页面信息)
+
+document1.php 里决定启动哪个 hub <= Eh1.php serve() 来计算
+所有的数据 要么全部静态化、要么在得到实例之后 全部初始化 (可能会 较少看到 getState 和 initState 、较多看到 new Xxxx() )
+
+从 view 反推:
+view - Assembled - Hub
+
+从 Hub 正推:
+Hub - ComboCard - state servie - state - (Hub launch with state as payload "level1payload") - launch page build engine
+// 准备好了每个 Hub 里可能有大量重复内容
+
+从 url 正推:
+url - Eh1 - 启动一扎 [hub1, hub2, hub3] 里的哪个 hub // 启动 $controller->start1(); ->start2(); ->start3();
+       ^ 自带 url 推算器所需的东西, 但并不用传递参数给 controller 。 hub 在 handle 的时候自己就从 assembled 里取数据了
+              完全可以说是 url parser
+
+从数据反推:
+对 CRUD 语义的认识完全为零
+state service - ComboCard - 哪个 ComboCard 被初始化并启用了
+
+可能的情况
+ComboCard 里会装的数据更多
+ComboCard 里会装 [hub1, hub2, hub3] 所需的所有数据 // 完全不合理 . 可能需要花式 onNotif : 给不同的 start 有不同的 onNotif 因为不同的 hub 需要不同 "自我 getState" 以获取 ComboCard 里的部分最新数据
+
+
+
+
+
+
+数据必须来自对象而非变量
+-- 之前我预设的是 数据必须来自对象而非变量。现在 如果直接在 controller 里写，似乎是打破了这一点。那么可以在 controller 里写，并且不打破这一点(数据必须来自对象而非变量因为对象可以状态管理状态的自我更新)
+
+整体对标 project11 ~ project13 的效果
+
+
+关于 non-static 的好处
+- 仍可以获取到静态变量
+- 自己记录自己的状态 所有的状态来自于一个实例
+- 在声明周期方面, 有自己的 constructor 和 destructor
+- 速度低 有创建一个实例所需要的内存块(而非共享内存)的开销
+- scope 从 CLASS 变成了 CLASS->construct 出的 THIS_INSTANCE , 函数签名并不会变, 也可以继续 scope oriented programming
+https://stackoverflow.com/questions/7026507/why-are-static-variables-considered-evil
+
+关于 static
+- 不用类的实例化的时间了(实例化之后才能使用实例方法)(即使没有实例, 也可以使用静态方法)
+to access a non-static member, why can I only access static members (instead of a non-static member) from a static function?
+https://stackoverflow.com/questions/2283279/why-can-i-only-access-static-members-from-a-static-function/2283311#2283311
+
+state service 写法参考
+ex3/S2d/project13/State1Service.php
+hub 写法参考
+ex3/S2d/project13/Hub1.php

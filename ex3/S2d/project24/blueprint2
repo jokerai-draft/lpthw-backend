@@ -1,0 +1,18 @@
+
+单页面上复杂数据
+
+即使 OK 白送你一个 controller#action , 然后在这里面（action方法体）让你为一个页面载入复杂数据, 这时候如何(用(让谁谁谁)自我保持状态的方式)分层处理
+// 去找一个 state provider -- 可以是 state service 也可以是 component
+// PageController#start 参考 hub3 start 的写法
+
+???
+
+document - hub - component state service
+document - Eh1 - controller - hub - component state service
+
+
+
+-- 之前我预设的是 数据必须来自对象而非变量。现在 如果直接在 controller 里写，似乎是打破了这一点。那么可以在 controller 里写，并且不打破这一点(数据必须来自对象而非变量因为对象可以状态管理状态的自我更新)
+
+不带状态管理的对象: document Eh1 controller
+带状态管理的对象: component, state service (their caller: hub / controller)
