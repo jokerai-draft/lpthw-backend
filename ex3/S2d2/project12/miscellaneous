@@ -21,6 +21,7 @@ url - Eh1 - 启动一扎 [hub1, hub2, hub3] 里的哪个 hub // 启动 $controll
               完全可以说是 url parser
 
 从数据反推:
+(对页面数据复杂度的抹杀成功)
 对 CRUD 语义的认识完全为零
 state service - ComboCard - 哪个 ComboCard 被初始化并启用了
 

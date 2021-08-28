@@ -53,7 +53,7 @@ EOT;
 unset($contact);
 ?>
 </ul>
-
+<p><a href="./document1.php?theme=contacts&action=create">add new contact</a></p>
 <span>by <?= $url ?></span>
 
 </body>

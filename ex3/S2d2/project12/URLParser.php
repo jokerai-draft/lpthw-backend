@@ -14,7 +14,7 @@ class URLParser
         $this->httpMessageHandler['QUERY_STRING'] = $_SERVER['QUERY_STRING'] ?? "";
     }
     public function route() {
-        $theme = $this->httpMessageHandler['GET']['theme'] ?? "";
+        $theme = $this->httpMessageHandler['GET']['theme'] ?? $this->httpMessageHandler['POST']['theme'] ?? "";
         if ($theme === "contacts") {
             $this->subroute();
         }
@@ -34,8 +34,7 @@ class URLParser
         //
         $method = $this->httpMessageHandler['REQUEST_METHOD'];
         $action = $this->httpMessageHandler['GET']['action'] ?? $this->httpMessageHandler['POST']['action'] ?? "index";
-        $id = (int)($this->httpMessageHandler['GET']['id'] ?? $this->httpMessageHandler['POST']['id'] ?? -1);
-        $event = $this->httpMessageHandler['POST']['event'] ?? null;
+        $id = $this->httpMessageHandler['GET']['id'] ?? $this->httpMessageHandler['POST']['id'] ?? "-1";
 
         if (false) {
             $controller = new PageController();

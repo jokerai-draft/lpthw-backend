@@ -15,11 +15,11 @@ class ContactRepository
 
     public function save($payload) {
         $contact = ['name' => $payload['name'], 'phone' => $payload['phone'], 'email' => $payload['email'], ];
-        $contact['id'] = self::getNewestId() + 1;
+        $contact['id'] = self::getNewestId() + 1; // 也可以用雪花算法生成不重复的 uuid
         $contacts = self::loadStateFromFile();
         $contacts[] = $contact;
         self::saveStateToFile($contacts); // effect
-        return true;
+        return $contact['id'];
     }
 
     public function update($payload) {
@@ -32,10 +32,11 @@ class ContactRepository
             $contacts[$id]['name'] = $payload['name'];
             $contacts[$id]['phone'] = $payload['phone'];
             $contacts[$id]['email'] = $payload['email'];
-            // $contacts[$id]['id'] = $payload['id'];
+            // $contacts[$id]['id'] = $payload['id']; ;
             self::saveStateToFile($contacts); // effect
             return true;
         } else {
+            // the contact doesn't exist
             return false;
         }
     }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact details</title>
+    <title>Add new contact</title>
     <style>
         .container {
             display: flex;
@@ -33,18 +33,32 @@ $writtingTimes2 = $databag['level1payload']['counter']['writtingTimes'];
 </div>
 
 <?php
-$contact = $databag['level1payload']['ContactModel'];//['contact'];
 
 ?>
-<h4>Contact details</h4>
+<h4>Add new contact</h4>
 
-<li>
-Name: <?= $contact['name'] ?> <br>
-Phone: <?= $contact['phone'] ?> <br>
-Email: <?= $contact['email'] ?> <br>
-</li>
+<form action="<?= $url ?>" method="POST">
+    <input type="hidden" name="theme" value="contacts" />
+    <input type="hidden" name="action" value="store" />
 
-<a href="./document1.php?theme=contacts&action=index">back</a> <a href="./document1.php?theme=contacts&action=edit&id=<?= $contact['id'] ?>">edit</a><br><br>
+    <label for="">name</label><br />
+    <input type="text" name="name" id="name" value="" /><br />
+    <label for="">phone</label><br />
+    <input type="text" name="phone" id="phone" value="" /><br />
+    <label for="">email</label><br />
+    <input type="text" name="email" id="email" value="" /><br />
+    <input type="hidden" name="submitted" value="1" />
+    <input type="submit" value="submit" />
+    <input type="button" value="clean" onclick="
+    (function() {
+        document.getElementById('name').value='';
+        document.getElementById('phone').value='';
+        document.getElementById('email').value='';
+    })();
+    " />
+</form>
+
+<a href="./document1.php?theme=contacts&action=index">back</a><br><br>
 <span>by <?= $url ?></span>
 
 </body>
