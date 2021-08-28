@@ -57,7 +57,7 @@ class URLParser
             }
 
 
-            // todo
+            // todo - done
             if ($method === "POST" && $action === "update") {
                 $controller->update($id);
                 exit();
@@ -70,7 +70,9 @@ class URLParser
                 $controller->store();
                 exit();
             }
-            if ($method === "POST" && $action === "destory") {
+
+            // todo - done
+            if ($method === "POST" && $action === "destroy") {
                 $controller->destroy($id);
                 exit();
             }

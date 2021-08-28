@@ -5,7 +5,7 @@ Hub2 <= controller#action2
 Hub 里用到的 Component <= ComboCard
 Hub 里给出的 返回值组装方案 - Assembled (可自己获取到本页面信息)
 
-document1.php 里决定启动哪个 hub <= Eh1.php serve() 来计算
+document1.php 里决定启动哪个 hub <= Eh1.php serve() aka URLParser.php route() 来计算
 所有的数据 要么全部静态化、要么在得到实例之后 全部初始化 (可能会 较少看到 getState 和 initState 、较多看到 new Xxxx() )
 
 从 view 反推:

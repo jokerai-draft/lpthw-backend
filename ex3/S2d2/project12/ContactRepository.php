@@ -4,7 +4,7 @@
 class ContactRepository
 {
     public function __construct() {
-        // self::resetState();
+        self::resetState();
     }
 
     public function getContacts() {
@@ -58,6 +58,15 @@ class ContactRepository
         return $item;
     }
 
+    public function delete($id) {
+        $contacts = self::loadStateFromFile();
+        foreach ($contacts as $k => $v) {
+            if ((int)$v['id'] === (int)$id) { unset($contacts[$k]); }
+        }
+        self::saveStateToFile($contacts);
+        return true;
+    }
+
     // effect
     private static function loadStateFromFile() {
         if (file_exists('storage')) {
@@ -68,6 +77,8 @@ class ContactRepository
                     ['name' => 'Alice', 'phone' => '000-000-9999', 'email' => 'alice@gmail.com', 'id'=>1,],
                     ['name' => 'Bill', 'phone' => '510-422-6710', 'email' => 'bill@gmail.com', 'id'=>2,],
                     ['name' => 'Cindy', 'phone' => '513-739-2025', 'email' => 'cindy@gmail.com', 'id'=>3,],
+                    ['name' => 'Dave', 'phone' => '431-129-3011', 'email' => 'dave@gmail.com', 'id'=>4,],
+                    ['name' => 'Emma', 'phone' => '513-711-2921', 'email' => 'cindy@gmail.com', 'id'=>5,],
                 ];
                 $contacts = array_merge($contacts, $arr1);
                 self::saveStateToFile($contacts);

@@ -66,7 +66,9 @@ class ContactController
 
     public function update($id) {
         // handle ... 数据过滤
-        $payload = ['name' => $this->httpMessageHandler['POST']['name'], 'phone' => $this->httpMessageHandler['POST']['phone'], 'email' => $this->httpMessageHandler['POST']['email'], ];
+        $payload = ['name' => $this->httpMessageHandler['POST']['name'],
+          'phone' => $this->httpMessageHandler['POST']['phone'],
+          'email' => $this->httpMessageHandler['POST']['email'], ];
         $payload = array_map(fn($item) => trim($item), $payload);
         // $payload['id'] = $this->httpMessageHandler['POST']['id'];
         $payload['id'] = (int)$id;
@@ -88,7 +90,9 @@ class ContactController
 
     public function store() {
         // handle ... 数据过滤
-        $payload = ['name' => $this->httpMessageHandler['POST']['name'], 'phone' => $this->httpMessageHandler['POST']['phone'], 'email' => $this->httpMessageHandler['POST']['email'], ];
+        $payload = ['name' => $this->httpMessageHandler['POST']['name'],
+          'phone' => $this->httpMessageHandler['POST']['phone'],
+          'email' => $this->httpMessageHandler['POST']['email'], ];
         $payload = array_map(fn($item) => trim($item), $payload);
 
         // handle
@@ -116,5 +120,24 @@ class ContactController
         Assembled::init();
         Assembled::performIn($this->state);
         Assembled::performOut('view.contact.create.php');
+    }
+
+    public function destroy($id) {
+        // handle ... 数据过滤
+        $payload = (int)$id;
+
+        // handle
+        StateContactService::updateState(); // db or save to file, effect
+        State2Service::updateState();
+        $contactRepository = new ContactRepository();
+        $contactRepository->delete($payload); // should be true
+
+        // getState
+        $this->state['ContactModel'] = [];
+        $this->state['counter'] = State2Service::getState();
+
+        // 相当于 perform
+        header("Location: ./document1.php?theme=contacts&action=index");
+        exit();
     }
 }

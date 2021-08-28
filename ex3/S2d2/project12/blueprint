@@ -12,3 +12,21 @@
 不同固化层的组合 可以写 view 让 view 判断是否有 session 的某个字段(比如判断是否已登入), 可以写带登入功能的网站或带后台功能的网站
 
 不同数据存储地点的组合 可以写 component 数据结构   让自己管理数据源的 combo card 去抓取数据 给出数据给 hub (让 hub getState) 把数据注入到 view 里, 可以写带复杂数据的载入页
+// 每个 hub 自带一个 combo card
+// 每个 hub 自带流程: handle getState launch
+
+按照 event machine 的分类
+关乎 url 的 event machine
+关乎 某个内部的状态管理的 event machine (无限刷新 getState)
+关乎 文件读取的 event machine
+
+按照动作集的分类
+关乎某个可和固化层通信(标准 CRUD 动作)的资源的动作集
+关乎某个可和 hub 通信(为 hub 提供支持)的动作集
+// 这之间不会超过三层: hub 动作集1 动作集2 固化层, 有时候两层就够 hub 动作集2 固化层
+对外部资源的调用
+https://stackoverflow.com/questions/24642967/can-i-host-images-in-heroku-or-do-i-need-s3
+
+按照 "是否对某个外部资源有依赖/有处理能力" 的划分
+PageController.php 可以是繁杂的数据获取 但并不需要 url slug 尤其是 POST 信息
+ContactController.php 专门会去获取 url slug 作为 param 来计算自己的 state , 自己配备了 一个 HTTP 报文处理器的实例

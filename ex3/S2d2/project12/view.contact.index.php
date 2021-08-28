@@ -12,6 +12,17 @@
         .container > div {
             margin: 30px 30px;
         }
+        .link {
+            background: none!important;
+            border: none;
+            padding: 0!important;
+            /*optional*/
+            font-family: arial, sans-serif;
+            /*input has OS specific font-family*/
+            color: #069;
+            text-decoration: underline;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -40,15 +51,34 @@ $contacts = $databag['level1payload']['ContactModel'];//['contacts'];
 <ul>
 <?php
 foreach ($contacts as $contact) {
-    $detailUrl = './document1.php?theme=contacts&action=show&id=' . $contact['id'];
+    $detailsUrl = './document1.php?theme=contacts&action=show&id=' . $contact['id'];
     echo <<<EOT
 <li>
 Name: {$contact['name']} <br>
 Phone: {$contact['phone']} <br>
 Email: {$contact['email']} <br>
-<a href="$detailUrl">detail</a>
-</li>
+
+<div style="display: flex;" id="detailsAndDeleteLinks">
+<span><a href="$detailsUrl">details</a></span>
 EOT;
+?>
+
+&nbsp;&nbsp;
+
+<form action="<?= $url ?>" method="POST">
+    <input type="hidden" name="theme" value="contacts" />
+    <input type="hidden" name="action" value="destroy" />
+
+    <input type="hidden" name="id" value="<?= $contact['id'] ?>" />
+    <input type="hidden" name="submitted" value="1" />
+    <button type="submit" onclick="return confirm('confirm delete?');" class="link">X</button>
+</form>
+
+&nbsp;&nbsp;
+
+</div>
+<?php
+echo "</li>";
 }
 unset($contact);
 ?>
