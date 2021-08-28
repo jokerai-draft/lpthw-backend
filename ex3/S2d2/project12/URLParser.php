@@ -17,6 +17,7 @@ class URLParser
         $theme = $this->httpMessageHandler['GET']['theme'] ?? $this->httpMessageHandler['POST']['theme'] ?? "";
         if ($theme === "contacts") {
             $this->subroute();
+            exit();
         }
         if (true) {
             $controller = new PageController();

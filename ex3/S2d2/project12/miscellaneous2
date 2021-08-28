@@ -1,0 +1,6 @@
+
+combo card 对应 controller:
+本该是 一个 hub 一个 component 的, 现在是 hub 组 [hub1, hub2, hub3] 在 controller 里了, 但还是 一个 hub 消费一个 component (一个 hub 借此得到自己的 state 然后 launch 填充 view)
+// combo card 这个东西都是看似的 其实不用看. 按照同样的原理其实完全可以 [hub1, hub2, hub3] 对应(分别各自在消费) combo card 1 | combo card 2 | combo card 3 使得 [hub1, hub2, hub3] 都各自有了(自我状态管理成功)自己的最新状态然后 launch 去了。等于是同样的 launch 做了三遍而已
+
+combo card 对应 controller 只是一种看似, 一种障眼法

@@ -1,0 +1,12 @@
+
+奇怪问题
+整个网站应该有几个 controller ?
+
+把网址 所接通到的后台程序 当作一个 大黑箱, 网站 view 结果是黑箱输出结果 ... 然后被告知 输出结果都是 controller 在控制输出的, 自然看到网站有 n个页面 就会问 整个网站有几个 controller
+
+// 有几个 theme 就有几个 controller
+./document1.php?theme=defaultTheme
+./document1.php?theme=contacts
+
+./document1.php?theme=contacts&action=index
+./document1.php?theme=contacts&action=edit 一个 theme 反映了一组 hub 的输出的集合 (输出的都是这个 theme 的) 的概括性亮点  # 所以往往是 本没有 theme, 写到一半了, 为已经写了的这部分东西加个 theme 然后继续提高它的完整性
