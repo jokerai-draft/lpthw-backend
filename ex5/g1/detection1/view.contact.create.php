@@ -15,8 +15,9 @@
     </style>
 </head>
 <body>
-    <h4>Hi <?php echo $httpMessageHandler['GET']['name'] ?? "my friend" ?></h4>
-    <p><?php echo (new \DateTime())->format('Y-m-d H:i:s'); ?></p>
+    <h4>Hi <?= $httpMessageHandler['GET']['name'] ?? "my friend" ?></h4>
+    <p><?= (new \DateTime())->format('Y-m-d H:i:s'); ?></p>
+    <p><?= $databag['age'] ?></p>
 
 <?php
 $url = $httpMessageHandler['URL'];

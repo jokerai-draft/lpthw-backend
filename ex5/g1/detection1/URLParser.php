@@ -28,7 +28,7 @@ class URLParser
             }
         }
     }
-    public function subroute() {
+    private function subroute() {
 
         // parse url like
         // localhost:8000/document1.php?theme=contacts

@@ -44,26 +44,40 @@ class URLParser
             exit();
         }
         if (true) {
-            $route1 = ['method' => 'GET',  'action' => 'index', 'callback' => 'index'];
-            $route2 = ['method' => 'GET',  'action' => 'show', 'callback' => 'show', 'params' => 'id'];
-            $route3 = ['method' => 'GET',  'action' => 'edit', 'callback' => 'edit', 'params' => 'id'];
-            $route4 = ['method' => 'POST', 'action' => 'update', 'callback' => 'update', 'params' => 'id'];
-            $route5 = ['method' => 'GET',  'action' => 'create', 'callback' => 'create'];
-            $route6 = ['method' => 'POST', 'action' => 'store', 'callback' => 'store'];
-            $route7 = ['method' => 'POST', 'action' => 'destroy', 'callback' => 'destroy', 'params' => 'id'];
-            $routes = [$route1, $route2, $route3, $route4, $route5, $route6, $route7];
             $controller = new ContactController();
-            foreach ($routes as $k => $v) {
-                if ($v['method'] === $method && $v['action'] === $action) {
-                    if (!isset($v['params'])) {
-                        call_user_func([$controller, $v['callback']]);
-                    } else {
-                        call_user_func([$controller, $v['callback']], ${$v['params']});
-                    }
-                }
+            if ($method === "GET" && $action === "index") {
+                $controller->index();
+                exit();
             }
-            unset($k); unset($v);
-            exit();
+            if ($method === "GET" && $action === "show") {
+                $controller->show($id);
+                exit();
+            }
+            if ($method === "GET" && $action === "edit") {
+                $controller->edit($id);
+                exit();
+            }
+
+
+            // todo - done
+            if ($method === "POST" && $action === "update") {
+                $controller->update($id);
+                exit();
+            }
+            if ($method === "GET" && $action === "create") {
+                $controller->create();
+                exit();
+            }
+            if ($method === "POST" && $action === "store") {
+                $controller->store();
+                exit();
+            }
+
+            // todo - done
+            if ($method === "POST" && $action === "destroy") {
+                $controller->destroy($id);
+                exit();
+            }
         }
     }
 }

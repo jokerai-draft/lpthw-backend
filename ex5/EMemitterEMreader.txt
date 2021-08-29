@@ -1,0 +1,54 @@
+
+raw em emitter
+// 产生供别人读取的状态
+HTTP 报文 (URL + method), 硬盘文件 (读取到内存的一霎那 最新的那一块内存)
+
+em emitter
+第一个状态机的 storage: 谁对它感兴趣 拿它(报文enum)激活什么
+
+raw em reader
+document1.php
+
+em reader
+URLParser,
+
+2nd chained raw em reader ===>
+hub / controller#action,
+
+
+
+
+
+
+
+em emmiter
+第二个状态机的 storage: 谁对它感兴趣 拿它(硬盘数据)激活什么(可以激活view)
+
+raw em reader
+view,
+
+em reader
+state service,
+
+wrapper em reader
+component, combo card, hub, controller#action,
+
+
+
+
+
+
+
+
+em emitter
+===> 第三个状态机的 storage: 谁对它感兴趣 拿它(内存里 此对象给出的 getState)激活什么(可以激活view)
+
+raw em reader
+view
+
+em reader
+assembled
+
+wrapper em reader
+hub, controller#action,
+
