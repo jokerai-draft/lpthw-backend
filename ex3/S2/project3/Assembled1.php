@@ -37,7 +37,7 @@ class Assembled1
         // $locker = unserialize(file_get_contents("storage")); // content, text, data, "locker" ; state, handler
 
         if (self::$httpMessageHandler['REQUEST_METHOD'] === "POST") {
-            $lockers = [self::$httpMessageHandler['POST']['locker1'], self::$httpMessageHandler['POST']['locker2'], self::$httpMessageHandler['POST']['locker3'], ];  // 这里可以做成另一个 object 让它自己执行储存过程
+            $lockers = [self::$httpMessageHandler['POST']['locker1'], self::$httpMessageHandler['POST']['locker2'], self::$httpMessageHandler['POST']['locker3'], ];  // 这里可以做成另一个 object 让它自己执行存储过程
             // $lockers = array_map(fn($item) => Utils::escape($item), $lockers); // done already
             $lockers = array_map(fn($item) => rtrim($item), $lockers);
             file_put_contents("storage", serialize($lockers));
