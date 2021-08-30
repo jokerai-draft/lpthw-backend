@@ -16,13 +16,13 @@ class State2Service implements IStateService
         $timeSpan = time() - (new \DateTime('2000-01-01'))->getTimestamp();
         $result = (int)floor($timeSpan / 10); // plank result
         if ($this->state['result'] === $result) {
-            $arr1['writtingTimes'] = ++$this->state['writtingTimes']; // crazy writting frequency
+            $arr1['writtingTimes'] = $this->state['writtingTimes'] + 1; // crazy writting frequency
             $this->state = array_merge($this->state, $arr1);
             $this->saveStateToFile();
         }
         if ($this->state['result'] !== $result) {
             $arr1['result'] = $result;
-            $arr1['writtingTimes'] = ++$this->state['writtingTimes'];
+            $arr1['writtingTimes'] = $this->state['writtingTimes'] + 1;
             $this->state = array_merge($this->state, $arr1);
             $this->saveStateToFile();
         }

@@ -23,7 +23,7 @@ class State1Service
         }
         if (self::$state['result'] !== $result) {
             $arr1['result'] = $result;
-            $arr1['writtingTimes'] = ++self::$state['writtingTimes'];
+            $arr1['writtingTimes'] = self::$state['writtingTimes'] + 1;
             self::$state = array_merge(self::$state, $arr1);
             self::saveStateToFile();
         }

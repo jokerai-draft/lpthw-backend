@@ -16,13 +16,13 @@ class State2Service
         $timeSpan = time() - (new \DateTime('2000-01-01'))->getTimestamp();
         $result = (int)floor($timeSpan / 10); // plank result
         if (self::$state['result'] === $result) {
-            $arr1['writtingTimes'] = ++self::$state['writtingTimes']; // crazy writting frequency
+            $arr1['writtingTimes'] = self::$state['writtingTimes'] + 1; // crazy writting frequency
             self::$state = array_merge(self::$state, $arr1);
             self::saveStateToFile();
         }
         if (self::$state['result'] !== $result) {
             $arr1['result'] = $result;
-            $arr1['writtingTimes'] = ++self::$state['writtingTimes'];
+            $arr1['writtingTimes'] = self::$state['writtingTimes'] + 1;
             self::$state = array_merge(self::$state, $arr1);
             self::saveStateToFile();
         }

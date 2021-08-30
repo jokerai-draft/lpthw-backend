@@ -23,7 +23,7 @@ class State1Service implements IStateService
         }
         if ($this->state['result'] !== $result) {
             $arr1['result'] = $result;
-            $arr1['writtingTimes'] = ++$this->state['writtingTimes'];
+            $arr1['writtingTimes'] = $this->state['writtingTimes'] + 1;
             $this->state = array_merge($this->state, $arr1);
             $this->saveStateToFile();
         }
