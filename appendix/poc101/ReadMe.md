@@ -3,6 +3,7 @@ proof of concept (poc)
 
 这里有一致性很高的一套工具集, 顺带展示了他们的用法
 参考 ex5/g1/detection1
+参考 ex3/S2p/project3/State1Service.php (counter)
 
 route
 
