@@ -54,7 +54,7 @@ class URLParser
             $routes = [$route1, $route2, $route3, $route4, $route5, $route6, $route7];
             $controller = new ContactController();
             foreach ($routes as $v) {
-                if ($v['action'] === $action) {
+                if ($v['action'] === $action && $v['method'] === $method) {
                     if (!isset($v['params'])) {
                         call_user_func([$controller, $v['callback']]);
                     } else {
