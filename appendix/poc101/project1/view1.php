@@ -32,7 +32,7 @@ if ($name === "") {
 <?php
 $__isDebug = false;
 // $__isLoggedIn = $_SESSION['isLoggedIn'] ?? false;
-$__isLoggedIn = $databag['SESSION']['isLoggedIn'] ?? false;
+$__isLoggedIn = $httpMessageHandler['SESSION']['isLoggedIn'] ?? false;
 #debug
 if ($__isDebug) {
     echo "<pre>";

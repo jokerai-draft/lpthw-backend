@@ -19,12 +19,20 @@ class URLParser
         $method = $this->httpMessageHandler['REQUEST_METHOD'];
         $action = $this->httpMessageHandler['GET']['action'] ?? $this->httpMessageHandler['POST']['action'] ?? "default";
         if (true) {
-            $route1 = ['method' => 'GET',  'action' => 'default', 'callback' => 'default'];
-            $route2 = ['method' => 'POST', 'action' => 'store', 'callback' => 'storeCounter'];
-            $route3 = ['method' => 'GET',  'action' => 'start1', 'callback' => 'start1'];
-            $routes = [$route1, $route2, $route3, ];
-            $controller = new PageController();
+            $route1 = ['controller' => 'PageController', 'method' => 'GET', 'action' => 'default', 'callback' => 'default'];
+            $routeA = ['controller' => 'PageController', 'method' => 'GET', 'action' => 'timechecker1', 'callback' => 'timechecker1'];
+            $routeB = ['controller' => 'PageController', 'method' => 'GET', 'action' => 'timechecker2', 'callback' => 'timechecker2'];
+            $routeGroup1 = [$route1, $routeA, $routeB, ];
+
+            $routeLogin = ['controller' => 'SessionController', 'method' => 'POST', 'action' => 'login', 'callback' => 'store'];
+            $routeLogout = ['controller' => 'SessionController', 'method' => 'POST', 'action' => 'logout', 'callback' => 'destroy'];
+            $routeLoginPage = ['controller' => 'SessionController', 'method' => 'GET', 'action' => 'login', 'callback' => 'create'];
+            $routeGroup2 = [$routeLogin, $routeLogout, $routeLoginPage, ];
+
+            $routes = array_merge($routeGroup1, $routeGroup2);
             foreach ($routes as $v) {
+                $className = $v['controller'];
+                $controller = new $className();
                 if ($v['action'] === $action && $v['method'] === $method) {
                     if (!isset($v['params'])) {
                         call_user_func([$controller, $v['callback']]);
@@ -34,11 +42,12 @@ class URLParser
                 }
             }
             unset($v);
+
             exit();
         }
     }
 }
 
-// http://localhost:8000/index.php?action=start1
-// http://localhost:8000/index.php?action=start1&name=tom
 // http://localhost:8000/index.php?action=default
+// http://localhost:8000/index.php?action=login
+// http://localhost:8000/index.php?action=timechecker1

@@ -3,31 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document 1</title>
+    <title>Time checker 1</title>
 </head>
 <body>
 
 <?php
-$greetings = $databag['level1payload']['greetings'];
-$luckyNumber = $databag['level1payload']['luckyNumber'];
-$age = $databag['age'];
-$name = $httpMessageHandler['GET']['name'] ?? "";
+$credential = $databag['level1payload']['credential'];
+$url = $httpMessageHandler['URL'];
 ?>
-<h4><?= $greetings ?></h4>
-<h4>how are you?</h4>
-<h4>I am <?= $age ?>℃.</h4>
-<div>My luck number is: <h4><?= $luckyNumber ?></h4><div>
-
 
 <?php
-if ($name === "") {
-    $joke = "Lily's hat is on the ground.";
-} else {
-    $joke = "{$name}'s hat is on the ground.";
+if ($credential['isLoggedIn'] === true) {
+    // show links leading to logged-in-only pages
+    // show logout button
+
+    echo "welcome, " . $credential['username'] . ".";
+    echo "<br />";
+    echo "it is " . (new DateTime())->format('Y-m-d H:i:s') . " now." . "<br />";
+    echo <<<EOT
+<a href="./index.php">index</a><br />
+EOT;
+}
+if ($credential['isLoggedIn'] === false) {
+    // show login button
+    echo <<<EOT
+<a href="./index.php?action=login">click to login</a>
+EOT;
 }
 ?>
-<h4><?= $joke ?></h4>
-
 
 <?php
 $__isDebug = false;
@@ -47,8 +50,9 @@ if ($__isDebug) {
 </html>
 <!--
 http://localhost:8000/index.php
-http://localhost:8000/index.php?action=start1
-http://localhost:8000/index.php?action=start1&name=tom
+http://localhost:8000/index.php?action=timechecker1
+http://localhost:8000/index.php?action=timechecker2
+
 http://localhost:8000/index.php?action=start1&name=you"><script>alert('XSS');</script>
 http://localhost:8000/index.php"><script>alert(‘xss’);</script>
 
