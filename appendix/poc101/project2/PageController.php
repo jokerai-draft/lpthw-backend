@@ -34,17 +34,22 @@ class PageController
         $assmebled->performOut('view2.php');
     }
 
+    // public function storeCounter() {
+    //     echo "<pre>";
+    //     print_r($this->httpMessageHandler);
+    //     echo "</pre>";
+    // }
     public function storeCounter() {
         // handle ... 数据过滤
         $payload = [ 'step' => $this->httpMessageHandler['POST']['step'],
-            'submit' => $this->httpMessageHandler['POST']['submit'], ];
+            'operation' => $this->httpMessageHandler['POST']['operation'], ];
         $payload = array_map(fn($item) => trim($item), $payload);
 
         // handle
         (new StateAService())->updateState($payload); // db or save to file, effect
 
         // 相当于 perform
-        header("Location: ./index.php?action=default");
+        header("Location: ./index.php");
         exit();
     }
 

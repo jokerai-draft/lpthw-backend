@@ -12,10 +12,10 @@ class StateAService
     //       $this->saveStateToFile();
     // }
     public function updateState($payload) {
-        if ($payload['submit'] === "+") {
+        if ($payload['operation'] === "+") {
             $this->increment($payload);
         }
-        if ($payload['submit'] === "-") {
+        if ($payload['operation'] === "-") {
             $this->decrement($payload);
         }
     }

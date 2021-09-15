@@ -11,14 +11,20 @@
 $counter = $databag['level1payload']['counter'];
 $step = $databag['level1payload']['step'];
 $name = $httpMessageHandler['GET']['name'] ?? "tom";
+$url = $httpMessageHandler['URL'];
 ?>
 
 <h4>hi <?= $name ?></h4>
 
-<form action="./index.php?action=store" method="POST">
-    <input type="submit" name="submit" value="+" />
+<h4>Play with counter</h4>
+
+<form action="<?= $url ?>" method="POST">
+    <input type="hidden" name="theme" value="default" />
+    <input type="hidden" name="action" value="store" />
+
+    <input type="submit" name="operation" value="+" />
     <span><?= $counter ?></span>
-    <input type="submit" name="submit" value="-" /><br>
+    <input type="submit" name="operation" value="-" /><br>
     <label for="step">step </label>
     <input type="text" id="step" name="step" value="<?= $step ?>" /><br>
     <input type="hidden" name="submitted" value="1" />

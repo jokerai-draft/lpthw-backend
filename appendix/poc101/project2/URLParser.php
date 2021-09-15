@@ -41,3 +41,4 @@ class URLParser
 
 // http://localhost:8000/index.php?action=start1
 // http://localhost:8000/index.php?action=start1&name=tom
+// http://localhost:8000/index.php?action=default
