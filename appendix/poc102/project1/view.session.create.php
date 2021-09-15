@@ -8,7 +8,8 @@
 <body>
 
 <?php
-// 以下判断是不必要的，因为会直接提示 你已经登入 并且 redirect (这是在控制器里完成的)
+/*
+// 以下判断是不必要的，因为会直接提示 你已经登入 并且 redirect (这是在控制器里完成的 isAlreadyLoggedIn )
 if ($__isLoggedIn === true) {
     // show links leading to logged-in-only pages
     // show logout button
@@ -16,6 +17,7 @@ if ($__isLoggedIn === true) {
 if ($__isLoggedIn === false) {
     // show login button
 }
+*/
 ?>
 
 <?php

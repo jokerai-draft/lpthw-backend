@@ -24,7 +24,7 @@ if ($credential['isLoggedIn'] === true) {
     echo <<<EOT
 <a href="./index.php?action=timechecker1">timechecker1</a><br />
 <a href="./index.php?action=timechecker2">timechecker2</a><br />
-<form action="<?= $url ?>" method="POST">
+<form action="$url" method="POST">
     <input type="hidden" name="theme" value="default" />
     <input type="hidden" name="action" value="logout" />
     <input type="hidden" name="controller" value="SessionController" />

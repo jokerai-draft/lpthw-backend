@@ -53,6 +53,8 @@ class SessionController
             exit();
         }
         if ($isAlreadyLoggedIn === false) {
+            $this->state = [];
+
             $assmebled = new Assembled();
             $assmebled->performIn($this->state);
             $assmebled->performOut('view.session.create.php');
