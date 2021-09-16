@@ -42,7 +42,7 @@ EOT;
 ?>
 
 <?php
-$__isDebug = false;
+$__isDebug = true;
 // $__isLoggedIn = $_SESSION['isLoggedIn'] ?? false;
 $__isLoggedIn = $httpMessageHandler['SESSION']['isLoggedIn'] ?? false;
 #debug

@@ -17,7 +17,7 @@ if ($credential['isLoggedIn'] === true) {
     // show links leading to logged-in-only pages
     // show logout button
 
-    echo "welcome, " . $credential['username'] . ".";
+    echo "welcome, " . $credential['username'] . " USER #" . $credential['user_id'];
     echo "<br />";
     echo "IT IS " . (new DateTime())->format('Y-m-d H:i:s') . " NOW." . "<br />";
     echo <<<EOT

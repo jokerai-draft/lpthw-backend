@@ -16,14 +16,16 @@ class SessionedStateService
           if (!isset($this->state)) { $this->initState(); } // effect
         $credential = $payload;
         // $credential = ['username' => 'dave', 'password' => 'dave123', ];
-        $isLoggedIn = $this->tryLogin($credential);
+        $auth = $this->tryLogin($credential);
+        $isLoggedIn = $auth['isLoggedIn'];
         if ($isLoggedIn) {
             $this->state = ['isLoggedIn' => true,
                 'lastLoginTime' => (new DateTime())->format('Y-m-d H:i:s'),
-                'username' => $credential['username'], ];
+                'username' => $credential['username'],
+                'user_id' => $auth['user_id'], ];
             // get the new state
         } else {
-            $this->state = ['isLoggedIn' => false, 'lastLoginTime' => -1, 'username' => '', ];
+            $this->state = ['isLoggedIn' => false, 'lastLoginTime' => -1, 'username' => '', 'user_id' => -1, ];
         }
           $this->saveStateToFile();
 
@@ -33,7 +35,7 @@ class SessionedStateService
 
     public function logout() {
           if (!isset($this->state)) { $this->initState(); } // effect
-        $arr1 = ['isLoggedIn' => false, 'lastLoginTime' => -1, 'username' => '', ];
+        $arr1 = ['isLoggedIn' => false, 'lastLoginTime' => -1, 'username' => '', 'user_id' => -1, ];
         $this->state = array_merge($this->state, $arr1);
           $this->saveStateToFile();
     }
@@ -47,6 +49,7 @@ class SessionedStateService
         $this->state['isLoggedIn'] = $_SESSION['isLoggedIn'] ?? false;
         $this->state['lastLoginTime'] = $_SESSION['lastLoginTime'] ?? -1;
         $this->state['username'] = $_SESSION['username'] ?? '';
+        $this->state['user_id'] = $_SESSION['user_id'] ?? -1;
     }
     private function saveStateToFile() {
         // file_put_contents('storageA', serialize($this->state));
@@ -61,7 +64,7 @@ class SessionedStateService
         $this->loadStateFromFile(); // read from persistence layer 固化层: read from file, from db, from session
         if ( !is_array($this->state) || (is_array($this->state) && count($this->state) === 0)) { // 并不达标
             $this->state = [];
-            $arr1 = ['isLoggedIn' => false, 'lastLoginTime' => -1, 'username' => '', ];
+            $arr1 = ['isLoggedIn' => false, 'lastLoginTime' => -1, 'username' => '', 'user_id' => -1, ];
             $this->state = array_merge($this->state, $arr1);
             $this->saveStateToFile();
         } else {
@@ -81,7 +84,7 @@ class SessionedStateService
     }
 
     private function resetState() {
-        $this->state = ['isLoggedIn' => false, 'lastLoginTime' => -1, 'username' => '', ];
+        $this->state = ['isLoggedIn' => false, 'lastLoginTime' => -1, 'username' => '', 'user_id' => -1, ];
           $this->saveStateToFile(); // effect
     }
     public function reset() {
@@ -102,6 +105,12 @@ class SessionedStateService
                 $isLoggedIn = true;
             }
         }
-        return $isLoggedIn;
+        // return $isLoggedIn;
+        if ($isLoggedIn) {
+            $auth = ['isLoggedIn' => true, 'user_id' => $matched[array_key_last($matched)]['id'], 'username' => $matched[array_key_last($matched)]['username'], ];
+        } else {
+            $auth = ['isLoggedIn' => false, 'user_id' => -1, 'username' => '', ];
+        }
+        return $auth;
     }
 }

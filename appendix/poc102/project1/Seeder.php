@@ -32,4 +32,5 @@ if ($count = count($matched) > 0){
 }
 $r = [];
 $r['username'] = $matched[array_key_last($matched)]['username'];
+$auth['user_id'] = $matched[array_key_last($matched)]['id'];
 var_export($r);
