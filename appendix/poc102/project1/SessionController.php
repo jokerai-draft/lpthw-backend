@@ -46,7 +46,10 @@ class SessionController
         exit();
     }
     public function create() {
-        $isAlreadyLoggedIn = (bool)$this->httpMessageHandler['SESSION']['isLoggedIn'] ?? false;
+        // $isAlreadyLoggedIn = (bool)$this->httpMessageHandler['SESSION']['isLoggedIn'] ?? false;
+        $this->state['credential'] = (new SessionedStateService())->getState();
+        $isAlreadyLoggedIn = $this->state['credential']['isLoggedIn'];
+
         if ($isAlreadyLoggedIn === true) {
             // 相当于 perform
             header("Location: ./index.php");
