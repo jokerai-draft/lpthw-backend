@@ -37,11 +37,13 @@ if ($credential['isLoggedIn'] === false) {
     // show login button
     echo <<<EOT
 <a href="./index.php?action=login">click to login</a><br />
-<a href="./index.php?action=index&controller=ContactController">contacts</a><br />
-<a href="./index.php">index</a><br />
 EOT;
 }
 ?>
+
+<br />
+<a href="./index.php?theme=contacts&action=index&controller=ContactController">contacts</a><br />
+<a href="./index.php">index</a><br />
 
 <?php
 $__isDebug = true;
