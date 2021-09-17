@@ -49,7 +49,12 @@ class URLParser
             $route7 = ['method' => 'POST', 'action' => 'destroy', 'callback' => 'destroy', 'params' => 'id', 'controller' => 'ContactController'];
             $routeGroup2 = [$route1, $route2, $route3, $route4, $route5, $route6, $route7];
 
-            $routes = array_merge($routeGroup1, $routeGroup2);
+            $routeLogin = ['controller' => 'SessionController', 'method' => 'POST', 'action' => 'login', 'callback' => 'store'];
+            $routeLogout = ['controller' => 'SessionController', 'method' => 'POST', 'action' => 'logout', 'callback' => 'destroy'];
+            $routeLoginPage = ['controller' => 'SessionController', 'method' => 'GET', 'action' => 'login', 'callback' => 'create'];
+            $routeGroup3 = [$routeLogin, $routeLogout, $routeLoginPage, ];
+
+            $routes = array_merge($routeGroup1, $routeGroup2, $routeGroup3);
             foreach ($routes as $v) {
                 if ($v['action'] === $action && $v['method'] === $method && $v['controller'] === $controller) {
                     $className = $v['controller'];

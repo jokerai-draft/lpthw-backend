@@ -15,6 +15,9 @@ class ContactController
     }
 
     public function index() {
+        // middleware
+        $this->authMiddleware();
+
         $this->state['contacts'] = (new ContactRepository())->getAll();
 
         $assmebled = new Assembled();
@@ -23,6 +26,9 @@ class ContactController
     }
 
     public function show($id) {
+        // middleware
+        $this->authMiddleware();
+
         $this->state['contact'] = (new ContactRepository())->getById($id);
 
         $assmebled = new Assembled();
@@ -31,6 +37,9 @@ class ContactController
     }
 
     public function edit($id) {
+        // middleware
+        $this->authMiddleware();
+
         $this->state['contact'] = (new ContactRepository())->getById($id);
 
         $assmebled = new Assembled();
@@ -39,6 +48,9 @@ class ContactController
     }
 
     public function create() {
+        // middleware
+        $this->authMiddleware();
+
         $this->state = [];
 
         $assmebled = new Assembled();
@@ -47,6 +59,9 @@ class ContactController
     }
     // store, update, destroy
     public function store() {
+        // middleware
+        $this->authMiddleware();
+
         // handle ... 数据过滤
         $payload = ['name' => $this->httpMessageHandler['POST']['name'],
           'phone' => $this->httpMessageHandler['POST']['phone'],
@@ -65,6 +80,9 @@ class ContactController
     }
 
     public function update($id) {
+        // middleware
+        $this->authMiddleware();
+
         // handle ... 数据过滤
         $payload = ['name' => $this->httpMessageHandler['POST']['name'],
           'phone' => $this->httpMessageHandler['POST']['phone'],
@@ -85,6 +103,9 @@ class ContactController
     }
 
     public function destroy($id) {
+        // middleware
+        $this->authMiddleware();
+
         // handle ... 数据过滤
         $payload = (int)$id;
 
@@ -96,4 +117,12 @@ class ContactController
         exit();
     }
 
+    private function authMiddleware() {
+        $this->state['credential'] = (new SessionedStateService())->getState();
+
+        if ($this->state['credential']['isLoggedIn'] === false) {
+            header("Location: ./index.php?action=login&controller=SessionController");
+            exit();
+        }
+    }
 }

@@ -3,48 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document 1</title>
+    <title>Login</title>
 </head>
 <body>
 
-<i>Now that you're here.</i>
+<?php
+/*
+// 以下判断是不必要的，因为会直接提示 你已经登入 并且 redirect (这是在控制器里完成的 isAlreadyLoggedIn )
+if ($__isLoggedIn === true) {
+    // show links leading to logged-in-only pages
+    // show logout button
+}
+if ($__isLoggedIn === false) {
+    // show login button
+}
+*/
+?>
 
 <?php
-$credential = $databag['level1payload']['credential'];
 $url = $httpMessageHandler['URL'];
 ?>
 
-<?php
-if ($credential['isLoggedIn'] === true) {
-    // show links leading to logged-in-only pages
-    // show logout button
+<h4>Login Form</h4>
 
-    echo "welcome, " . $credential['username'] . ".";
-    echo "<br />";
-    echo <<<EOT
-<a href="./index.php?theme=contacts&action=index&controller=ContactController">contacts</a><br />
-<a href="./index.php">index</a><br />
-<form action="$url" method="POST">
+<form action="<?= $url ?>" method="POST">
     <input type="hidden" name="theme" value="default" />
-    <input type="hidden" name="action" value="logout" />
+    <input type="hidden" name="action" value="login" />
     <input type="hidden" name="controller" value="SessionController" />
+
+    <label for="username">Username:</label><input type="text" name="username" />
+    <label for="password">Password:</label><input type="password" name="password" />
     <input type="hidden" name="submitted" value="1" />
-    <input type="submit" value="Logout">
+    <input type="submit" value="Sign in">
 </form>
-EOT;
-}
-if ($credential['isLoggedIn'] === false) {
-    // show login button
-    echo <<<EOT
-<a href="./index.php?action=login&controller=SessionController">click to login</a><br />
-EOT;
-}
-?>
 
-
+<a href="./index.php">index</a>
 
 <?php
-$__isDebug = true;
+$__isDebug = false;
 // $__isLoggedIn = $_SESSION['isLoggedIn'] ?? false;
 $__isLoggedIn = $httpMessageHandler['SESSION']['isLoggedIn'] ?? false;
 #debug
@@ -61,7 +57,7 @@ if ($__isDebug) {
 </html>
 <!--
 http://localhost:8000/index.php
-http://localhost:8000/index.php?action=timechecker1
+http://localhost:8000/index.php?action=login
 http://localhost:8000/index.php?action=timechecker2
 
 http://localhost:8000/index.php?action=start1&name=you"><script>alert('XSS');</script>

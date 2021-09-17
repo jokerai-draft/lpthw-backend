@@ -15,7 +15,7 @@ class PageController
     }
 
     public function default() {
-        // $this->state['credential'] = (new SessionedStateService())->getState();
+        $this->state['credential'] = (new SessionedStateService())->getState();
 
         $assmebled = new Assembled();
         $assmebled->performIn($this->state);
