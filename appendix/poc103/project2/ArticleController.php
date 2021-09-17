@@ -19,6 +19,7 @@ class ArticleController
         $this->authMiddleware();
 
         $this->state['articles'] = (new ArticleRepository())->getAll();
+        $this->articlePolicyHelper($this->state['articles']);
 
         $assmebled = new Assembled();
         $assmebled->performIn($this->state);
@@ -30,6 +31,8 @@ class ArticleController
         $this->authMiddleware();
 
         $this->state['article'] = (new ArticleRepository())->getById($id);
+          $arr = [&$this->state['article'], ];
+        $this->articlePolicyHelper($arr);
 
         $assmebled = new Assembled();
         $assmebled->performIn($this->state);
@@ -39,6 +42,7 @@ class ArticleController
     public function edit($id) {
         // middleware
         $this->authMiddleware();
+        $this->articlePolicyMiddleware($id);
 
         $this->state['article'] = (new ArticleRepository())->getById($id);
 
@@ -83,6 +87,7 @@ class ArticleController
     public function update($id) {
         // middleware
         $this->authMiddleware();
+        $this->articlePolicyMiddleware($id);
 
         // handle ... 数据过滤
         $payload = ['title' => $this->httpMessageHandler['POST']['title'],
@@ -107,6 +112,7 @@ class ArticleController
     public function destroy($id) {
         // middleware
         $this->authMiddleware();
+        $this->articlePolicyMiddleware($id);
 
         // handle ... 数据过滤
         $payload = (int)$id;
@@ -126,5 +132,25 @@ class ArticleController
             header("Location: ./index.php?action=login&controller=SessionController");
             exit();
         }
+    }
+
+    private function articlePolicyMiddleware($id) {
+        $credentialUserId = (new SessionedStateService())->getState()['user_id'];
+        $articleUserId = (new ArticleRepository())->getById((int)$id)['user_id'];
+        $this->state['authorization'] = (new ArticlePolicyService())->getPermission($credentialUserId, $articleUserId);
+
+        if ($this->state['authorization'] === false) {
+            http_response_code(403);
+            die('403 Forbidden');
+        }
+    }
+    private function articlePolicyHelper(&$articles) {
+        // set 'can' field for each article entity in $articles
+        $credentialUserId = (new SessionedStateService())->getState()['user_id'];
+        array_walk($articles, function(&$v, $k) use ($credentialUserId) {
+            $v['can'] = false;
+            $articleUserId = $v['user_id'];
+            $v['can'] = (new ArticlePolicyService())->getPermission($credentialUserId, $articleUserId);
+        });
     }
 }

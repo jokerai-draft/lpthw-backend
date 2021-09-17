@@ -49,7 +49,7 @@ EOT;
 ?>
 
 <?php
-if ($article['canDestroy'] === true) {
+if (isset($article['can']) && $article['can'] === true) {
 ?>
 &nbsp;&nbsp;
 

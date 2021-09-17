@@ -20,7 +20,7 @@ $article = $databag['level1payload']['article'];
 </div>
 
 <div>
-    <a href="./index.php?theme=articles&action=edit&id=<?= $article['id'] ?>&controller=ArticleController">edit</a><br />
+<?php if (isset($article['can']) && $article['can'] === true) { ?><a href="./index.php?theme=articles&action=edit&id=<?= $article['id'] ?>&controller=ArticleController">edit</a><br /><?php } ?>
     <br />
     <a href="./index.php?theme=articles&action=index&controller=ArticleController">articles</a><br />
     <a href="./index.php">index</a><br />
