@@ -74,5 +74,4 @@ class URLParser
 }
 
 // http://localhost:8000/index.php?action=default
-// http://localhost:8000/index.php?action=login
-// http://localhost:8000/index.php?action=timechecker1
+// http://localhost:8000/index.php?action=login&controller=SessionController
