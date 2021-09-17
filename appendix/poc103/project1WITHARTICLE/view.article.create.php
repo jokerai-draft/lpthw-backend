@@ -22,10 +22,10 @@ $user_id = $httpMessageHandler['SESSION']['user_id'] ?? -1;
     <input type="hidden" name="action" value="store" />
     <input type="hidden" name="controller" value="ArticleController" />
 
-    <label for="title">Title:</label><input type="text" name="title" />
-    <textarea name="body" rows="4" cols="50" placeholder=""></textarea>
+    <label for="title">Title:</label><input type="text" name="title" /><br />
+    <textarea name="body" rows="10" cols="50" placeholder=""></textarea>
     <input type="hidden" name="user_id" value="<?= $user_id ?>" />
-    <input type="hidden" name="submitted" value="1" />
+    <input type="hidden" name="submitted" value="1" /><br />
     <input type="submit" value="Submit">
 </form>
 </div>
