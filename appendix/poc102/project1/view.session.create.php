@@ -31,10 +31,8 @@ $url = $httpMessageHandler['URL'];
     <input type="hidden" name="action" value="login" />
     <input type="hidden" name="controller" value="SessionController" />
 
-    <label for="username">Username:</label>
-    <input type="text" name="username" />
-    <label for="password">Password:</label>
-    <input type="password" name="password" />
+    <label for="username">Username:</label><input type="text" name="username" />
+    <label for="password">Password:</label><input type="password" name="password" />
     <input type="hidden" name="submitted" value="1" />
     <input type="submit" value="Sign in">
 </form>
