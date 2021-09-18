@@ -8,7 +8,7 @@ interface IArticleRepository
     public function delete($id);
 
     public function getById($id);
-    // ['title' => '-1', 'body' => '-1', 'user_id' => '-1', 'id'=>-1];
+    // $entity = ['title' => '-1', 'body' => '-1', 'user_id' => '-1', 'id'=>-1];
 
     public function reset();
 }
