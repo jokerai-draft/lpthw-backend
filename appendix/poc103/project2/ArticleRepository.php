@@ -53,7 +53,7 @@ class ArticleRepository implements IArticleRepository
         if (count($found) === 1) {
             $entity = $found[array_key_last($found)];
         } else {
-            $entity = ['title' => '-1', 'body' => '-1', 'user_id' => '-1', 'id'=>-1,];
+            $entity = ['title' => '-1', 'body' => '-1', 'user_id' => -1, 'id'=>-1,];
         }
         return $entity;
     }
