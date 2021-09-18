@@ -8,7 +8,7 @@ interface IContactRepository
     public function delete($id);
 
     public function getById($id);
-    // ['name' => '-1', 'phone' => '-1', 'email' => '-1', 'id'=>-1];
+    // $entity = ['name' => '-1', 'phone' => '-1', 'email' => '-1', 'id'=>-1];
 
     public function reset();
 }

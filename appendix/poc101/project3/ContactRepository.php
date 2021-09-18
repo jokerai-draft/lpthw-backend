@@ -7,71 +7,71 @@ class ContactRepository implements IContactRepository
     }
 
     public function getAll() {
-        $contacts = [];
-        $contacts = $this->loadStateFromFile();
-        return $contacts;
+        $entities = [];
+        $entities = $this->loadStateFromFile();
+        return $entities;
     }
 
     public function save($payload) {
-        $contact = ['name' => $payload['name'], 'phone' => $payload['phone'], 'email' => $payload['email'], ];
-        $contact['id'] = $this->getLastId() + 1; // 也可以用雪花算法生成不重复的 uuid
-        $contacts = $this->loadStateFromFile();
-        $contacts[] = $contact;
-        $this->saveStateToFile($contacts); // effect
-        return $contact['id'];
+        $entity = ['name' => $payload['name'], 'phone' => $payload['phone'], 'email' => $payload['email'], ];
+        $entity['id'] = $this->getLastId() + 1; // 也可以用雪花算法生成不重复的 uuid
+        $entities = $this->loadStateFromFile();
+        $entities[] = $entity;
+        $this->saveStateToFile($entities); // effect
+        return $entity['id'];
     }
 
     public function update($payload) {
-        $contacts = $this->loadStateFromFile();
+        $entities = $this->loadStateFromFile();
         $id = $payload['id'];
-        $found = array_filter($contacts, function($item) use ($id) { return (int)$item['id'] === (int)$id; });
+        $found = array_filter($entities, function($entity) use ($id) { return (int)$entity['id'] === (int)$id; });
         if (count($found) === 1) {
-            // $item = $found[array_key_last($found)];
+            // $entity = $found[array_key_last($found)];
             $id = array_key_last($found);
-            $contacts[$id]['name'] = $payload['name'];
-            $contacts[$id]['phone'] = $payload['phone'];
-            $contacts[$id]['email'] = $payload['email'];
-            // $contacts[$id]['id'] = $payload['id']; ;
-            $this->saveStateToFile($contacts); // effect
+            $entities[$id]['name'] = $payload['name'];
+            $entities[$id]['phone'] = $payload['phone'];
+            $entities[$id]['email'] = $payload['email'];
+            // $entities[$id]['id'] = $payload['id']; ;
+            $this->saveStateToFile($entities); // effect
             return true;
         } else {
-            // the contact doesn't exist
+            // the entity doesn't exist
             return false;
         }
     }
 
     private function getLastId() {
-        $contacts = $this->loadStateFromFile();
-        $lastContact = $contacts[array_key_last($contacts)];
-        return (int)$lastContact['id'];
+        $entities = $this->loadStateFromFile();
+        $lastEntity = $entities[array_key_last($entities)];
+        return (int)$lastEntity['id'];
     }
 
     public function getById($id) {
-        $contacts = $this->loadStateFromFile();
-        $found = array_filter($contacts, function($item) use ($id) { return (int)$item['id'] === (int)$id; });
+        $entities = $this->loadStateFromFile();
+        $found = array_filter($entities, function($entity) use ($id) { return (int)$entity['id'] === (int)$id; });
         if (count($found) === 1) {
-            $item = $found[array_key_last($found)];
+            $entity = $found[array_key_last($found)];
         } else {
-            $item = ['name' => '-1', 'phone' => '-1', 'email' => '-1', 'id'=>-1,];
+            $entity = ['name' => '-1', 'phone' => '-1', 'email' => '-1', 'id'=>-1,];
         }
-        return $item;
+        return $entity;
     }
 
     public function delete($id) {
-        $contacts = $this->loadStateFromFile();
-        foreach ($contacts as $k => $v) {
-            if ((int)$v['id'] === (int)$id) { unset($contacts[$k]); }
+        $entities = $this->loadStateFromFile();
+        foreach ($entities as $k => $v) {
+            if ((int)$v['id'] === (int)$id) { unset($entities[$k]); }
         }
-        $this->saveStateToFile($contacts);
+        $this->saveStateToFile($entities);
         return true;
     }
 
     // effect
     private function loadStateFromFile() {
         if (file_exists('storage')) {
-            $contacts = unserialize(file_get_contents('storage'));
-            if ( !is_array($contacts) || (is_array($contacts) && count($contacts) === 0)) { // 并不达标
-                $contacts = [];
+            $entities = unserialize(file_get_contents('storage'));
+            if ( !is_array($entities) || (is_array($entities) && count($entities) === 0)) { // 并不达标
+                $entities = [];
                 $arr1 = [
                     ['name' => 'Alice', 'phone' => '000-000-9999', 'email' => 'alice@gmail.com', 'id'=>1,],
                     ['name' => 'Bill', 'phone' => '510-422-6710', 'email' => 'bill@gmail.com', 'id'=>2,],
@@ -79,8 +79,8 @@ class ContactRepository implements IContactRepository
                     ['name' => 'Dave', 'phone' => '431-129-3011', 'email' => 'dave@gmail.com', 'id'=>4,],
                     ['name' => 'Emma', 'phone' => '513-711-2921', 'email' => 'emma@gmail.com', 'id'=>5,],
                 ];
-                $contacts = array_merge($contacts, $arr1);
-                $this->saveStateToFile($contacts);
+                $entities = array_merge($entities, $arr1);
+                $this->saveStateToFile($entities);
             } else {
                 // 很达标
                 // 额外，如果需要修改
@@ -89,30 +89,30 @@ class ContactRepository implements IContactRepository
                     // var_export(gettype($now));
                     // var_export(get_class($now));
                     // $this->$state[0] = "zero is me as always";
-                    $contacts[0] = $now->format('Y-m-d H:i:s');
-                    $this->saveStateToFile($contacts);
+                    $entities[0] = $now->format('Y-m-d H:i:s');
+                    $this->saveStateToFile($entities);
                 }
             }
-            return $contacts;
+            return $entities;
         }
         if (!file_exists('storage')) {
-            $contacts = [];
-            $addressBook = [
+            $entities = [];
+            $dummyEntities = [
                 ['name' => 'Alice', 'phone' => '000-000-9999', 'email' => 'alice@gmail.com', 'id'=>1,],
                 ['name' => 'Bill', 'phone' => '510-422-6710', 'email' => 'bill@gmail.com', 'id'=>2,],
                 ['name' => 'Cindy', 'phone' => '513-739-2025', 'email' => 'cindy@gmail.com', 'id'=>3,],
             ];
-            $contacts = array_merge($contacts, $addressBook);
-            $this->saveStateToFile($contacts);
-            return $contacts;
+            $entities = array_merge($entities, $dummyEntities);
+            $this->saveStateToFile($entities);
+            return $entities;
         }
     }
     private function saveStateToFile($payload) {
         file_put_contents('storage', serialize($payload));
     }
     private function resetState() {
-        $contacts = [];
-        $this->saveStateToFile($contacts); // effect
+        $entities = [];
+        $this->saveStateToFile($entities); // effect
     }
     public function reset() {
         $this->resetState();
