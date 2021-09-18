@@ -31,8 +31,9 @@ class ArticleController
         $this->authMiddleware();
 
         $this->state['article'] = (new ArticleRepository())->getById($id);
-          $arr = [&$this->state['article'], ];
-        $this->articlePolicyHelper($arr);
+          $articles = [&$this->state['article'], ]; // pointer
+        $this->articlePolicyHelper($articles);
+          unset($articles);
 
         $assmebled = new Assembled();
         $assmebled->performIn($this->state);
@@ -141,7 +142,7 @@ class ArticleController
 
         if ($this->state['authorization'] === false) {
             http_response_code(403);
-            die('403 Forbidden');
+            die('<b>403 Forbidden</b>');
         }
     }
     private function articlePolicyHelper(&$articles) {
