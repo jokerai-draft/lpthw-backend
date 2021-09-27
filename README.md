@@ -28,3 +28,9 @@ https://docs.oracle.com/javase/tutorial/networking/sockets/definition.html
 may vary, completely new model (侵入性较强) that requires "specialized visibility" 参考 Shared mutable state is the root of all evil (共享的可变状态是万恶之源) // 可以说是违反了单一职责原则 看你怎么说了, 如果是对象级的单一职责 那么会有很多个对象 but 如果是函数级的单一职责 那么一个函数就像一个小工厂(自己负责自己与外星人的交互) 整体是一个大工厂 依然完成了大工厂的单一职责
 // 意义在于 指示标意义 再扁平的数据获取模式 也不会比巨型状态机更扁平了
 // 从不扁平到扁平: component as consumer (component with state service), component with state, component without state, component's consumer (assembled with component), the top consumer (assembled without component), the specialized visibility block,
+
+
+dto 、vo 的比喻
+时间延误 对于传统关系型数据库 硬盘I/O是一个很大的瓶颈 https://www.cnblogs.com/Tpf386/p/6703200.html
+从数据表出来的数据去了哪里 ex4/NewDBProblem.txt
+

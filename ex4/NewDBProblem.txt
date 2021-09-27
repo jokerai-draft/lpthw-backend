@@ -1,0 +1,19 @@
+
+NewDBProblem
+从数据表出来的数据去了哪里
+
+数据库连接之后的设想: 从数据表取数据 取数据填充到 class's instance 里
+- 一次取数据, 可能填充了多个 instance
+- 这个情况在 Repository 里发生, 不影响 消费 Repository 的消费者
+- Repository 可以正是 entity , Repository 也可以是 对 "物理 entity" 的封装 (逻辑 Repository, 物理 entity) 得到了 对 Repository 而言的 entity , 方便消费 Repository 的消费者
+
+一张表就可能拉出个 5 、6 个 pojo (PO)
+* https://www.v2ex.com/t/804422?p=1#r_10915577
+
+dto 、vo
+* https://web.archive.org/web/20210927041039/https://blog.csdn.net/u010722643/article/details/61201899 非常有概括性
+- 视图消费的 VO
+- 和 DB 最近的 PO ，载入内存
+- 逻辑 Repository 封装出来的 entity: DO (domain object)
+- DTO 来自 VO 表单数据: 服务层不会消费 VO (VO 层自己做了洗数据), 服务层会消费 DTO
+
