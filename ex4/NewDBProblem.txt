@@ -17,3 +17,8 @@ dto 、vo
 - 逻辑 Repository 封装出来的 entity: DO (domain object)
 - DTO 来自 VO 表单数据: 服务层不会消费 VO (VO 层自己做了洗数据), 服务层会消费 DTO
 
+dto 、vo
+* https://www.zhihu.com/question/491132556/answer/2164857469
+- DAO 层向上传输的 DO
+- Service 向上传输的 DTO
+- Service 和业务分析出的 BO
