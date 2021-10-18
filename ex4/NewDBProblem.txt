@@ -22,3 +22,5 @@ dto 、vo
 - DAO 层向上传输的 DO
 - Service 向上传输的 DTO
 - Service 和业务分析出的 BO
+- Service 和业务分析出的 BO 与业务逻辑的对应 https://www.cnblogs.com/roytian/p/15399236.html#Bean的生命周期
+- Service 和业务分析出的 BO 与业务逻辑的对应 https://insights.thoughtworks.cn/ddd-business-design/#DDD thoughtworks DDD 指导业务 一点思考
