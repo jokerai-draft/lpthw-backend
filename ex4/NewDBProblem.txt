@@ -23,4 +23,5 @@ dto 、vo
 - Service 向上传输的 DTO
 - Service 和业务分析出的 BO
 - Service 和业务分析出的 BO 与业务逻辑的对应 https://www.cnblogs.com/roytian/p/15399236.html#Bean的生命周期
+- Service 在整体架构中的位置(强调与 ...(基础设施)... 的关系 （界面事件的响应代码占到60%以上, wiring up）https://pastebin.com/0xiZjSpD ) https://docs.microsoft.com/zh-cn/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures https://learnku.com/articles/48397#讨论 Web 开发中 PHP 项目的合理分层
 - Service 和业务分析出的 BO 与业务逻辑的对应 https://insights.thoughtworks.cn/ddd-business-design/#DDD thoughtworks DDD 指导业务 一点思考
